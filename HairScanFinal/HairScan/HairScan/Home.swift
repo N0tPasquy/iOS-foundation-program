@@ -114,7 +114,7 @@ struct Home: View {
                         )
                     }
                     .padding(.horizontal, 25)
-                    .padding(.vertical, 20)
+                    .padding(.vertical, 10)
                     .background(
                         RoundedRectangle(cornerRadius: 30)
                             .fill(Color.cardBackground)
