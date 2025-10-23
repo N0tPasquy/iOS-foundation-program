@@ -159,10 +159,29 @@ struct Home: View {
             // TAB BAR INFERIORE (Replicazione - Sovrapposta)
             VStack {
                 HStack(spacing: 40) {
-                    VStack { Image(systemName: "rectangle.3.group"); Text("Dashboard").font(.caption2) }.foregroundColor(Color.themePurple)
-                    Button(action: {}) { Image(systemName: "camera.fill").font(.system(size: 30)).padding(15).background(Circle().fill(Color.themePurple)).foregroundColor(.white).shadow(radius: 5) }
-                        .offset(y: -15)
-                    VStack { Image(systemName: "list.bullet"); Text("History").font(.caption2) }.foregroundColor(.gray)
+                    VStack {
+                        Image("logo_dashboard")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                            .cornerRadius(70)
+                            
+                        Text("Dashboard").font(.caption2) }.foregroundColor(Color.themePurple)
+                    VStack{
+                        Button(action: {}) { Image(systemName: "camera.fill")
+                                .resizable()
+                                .frame(width: 40, height: 32)
+                                .font(.system(size: 30))
+                            }
+                        Text("Camera").font(.caption2)
+                    }.foregroundColor(Color.themePurple)
+                    
+                    
+                    VStack {
+                        Image(systemName: "list.bullet")
+                            .resizable()
+                            .frame(width: 25, height: 20)
+                            .font(.system(size: 30))
+                        Text("History").font(.caption2) }.foregroundColor(Color.themePurple)
                 }
                 .padding(.horizontal, 30)
                 .padding(.vertical, 10)
