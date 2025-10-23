@@ -7,11 +7,12 @@
 
 import SwiftUI
 
-// MARK: - Colori Personalizzati
+// MARK: - Colori e font personalizzati
 extension Color {
-    static let themePurple = Color(red: 0.65, green: 0.6, blue: 0.75)
-    static let lightBackground = Color(red: 0.95, green: 0.9, blue: 0.98)
-    static let cardBackground = Color.white
+    static let themePurple = Color(red: 78/255.0, green: 56/255.0, blue: 96/255.0)
+    static let lightBackground = Color(red: 244/255.0, green: 232/255.0, blue: 219/255.0)
+
+    static let cardBackground = Color(red: 252/255.0, green: 246/255.0, blue: 241/255.0)
 }
 
 // MARK: - TipCard (Consiglio fotografico)
@@ -26,9 +27,9 @@ struct TipCard: View {
                 .foregroundColor(.themePurple)
             
             Text(title)
-                .font(.subheadline)
+                .font(.custom("SerifMedium", size: 20))
                 .fontWeight(.medium)
-                .foregroundColor(Color.black.opacity(0.8))
+                .foregroundColor(Color.themePurple)
             
             Spacer()
         }
@@ -53,7 +54,7 @@ struct Home: View {
                     // 1. HEADER
                     HStack {
                         Text("HAIRSCAN")
-                            .font(.title2)
+                            .font(.custom("SerifMedium", size: 32))
                             .fontWeight(.bold)
                             .foregroundColor(Color.themePurple)
                         
@@ -74,37 +75,34 @@ struct Home: View {
                     // 2. BLOCCO PRINCIPALE (Welcome + Last Scan)
                     VStack(alignment: .leading, spacing: 20) {
                         
-                        VStack(alignment: .leading, spacing: 8) {
+                        VStack(alignment: .leading, spacing: 5) {
                             Text("Welcome,")
-                                .font(.largeTitle)
-                                .fontWeight(.bold)
-                                .foregroundColor(Color.black.opacity(0.85))
+                                .font(.custom("SerifMedium", size: 42))
+                                .foregroundColor(Color.themePurple)
                             
                             Text("Take care of your hair health,\nperform a scan")
-                                .font(.subheadline)
-                                .foregroundColor(.gray)
+                                .font(.custom("SerifMedium", size: 20))
+                                .foregroundColor(.themePurple).opacity(0.80)
                         }
                         
                         VStack {
                             Text("LAST SCAN :")
-                                .font(.headline)
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .font(.custom("SerifMedium", size: 22))
+                                .foregroundColor(.themePurple)
                                 .padding(.horizontal, 15)
                                 .padding(.vertical, 5)
-                                .background(Capsule().fill(Color.themePurple).opacity(0.8))
+                                .background(Capsule().fill(Color.lightBackground).opacity(0.57))
                             
                             Spacer()
                             
                             VStack(spacing: 10) {
-                                Image(systemName: "camera")
+                                Image(systemName: "camera.shutter.button")
                                     .font(.system(size: 60))
-                                    .foregroundColor(.white)
+                                    .foregroundColor(.themePurple)
                                 
                                 Text("No scan found")
-                                    .font(.title3)
-                                    .fontWeight(.medium)
-                                    .foregroundColor(.white)
+                                    .font(.custom("SerifMedium", size: 22))
+                                    .foregroundColor(.themePurple)
                             }
                             Spacer()
                         }
@@ -112,19 +110,18 @@ struct Home: View {
                         .frame(height: 220)
                         .background(
                             RoundedRectangle(cornerRadius: 20)
-                                .fill(Color.themePurple.opacity(0.8))
+                                .fill(Color.themePurple.opacity(0.61))
                         )
                     }
                     .padding(.horizontal, 25)
-                    .padding(.vertical, 25)
+                    .padding(.vertical, 20)
                     .background(
                         RoundedRectangle(cornerRadius: 30)
                             .fill(Color.cardBackground)
                             .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 3)
                     )
                     .padding(.horizontal, 20)
-                    
-                    // ----------------------------------------------------
+
                     // 3. CONSIGLI (Tips)
                     VStack(alignment: .leading, spacing: 10) {
                         TipCard(icon: "magnifyingglass.circle.fill", title: "Capture the full hairstyle")
@@ -134,68 +131,20 @@ struct Home: View {
                         TipCard(icon: "lightbulb.fill", title: "Take the photo in natural light")
                     }
                     .padding(.horizontal, 25)
-                    .padding(.vertical, 15)
+                    .padding(.vertical, 10)
                     .background(
                         RoundedRectangle(cornerRadius: 30)
-                            .fill(Color.cardBackground)
+                            .fill(Color.themePurple).opacity(0.30)
                             .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 3)
                     )
                     .padding(.horizontal, 20)
                     
                     Spacer()
                 }
-                .padding(.top, 20)
+                .padding(.top, 0)
                 
-                // ----------------------------------------------------
                 // 4. TAB BAR INFERIORE
-                VStack {
-                    HStack(spacing: 40) {
-                        
-                        // DASHBOARD
-                        NavigationLink(destination: DashboardView()) {
-                            VStack {
-                                Image("logo_dashboard")
-                                    .resizable()
-                                    .frame(width: 40, height: 40)
-                                    .cornerRadius(70)
-                                Text("Dashboard")
-                                    .font(.caption2)
-                            }
-                            .foregroundColor(.themePurple)
-                        }
-                        
-                        // CAMERA
-                        NavigationLink(destination: CameraView()) {
-                            VStack {
-                                Image(systemName: "camera.fill")
-                                    .resizable()
-                                    .frame(width: 40, height: 32)
-                                Text("Camera")
-                                    .font(.caption2)
-                            }
-                            .foregroundColor(.themePurple)
-                        }
-                        
-                        // HISTORY
-                        NavigationLink(destination: HistoryView()) {
-                            VStack {
-                                Image(systemName: "list.bullet")
-                                    .resizable()
-                                    .frame(width: 25, height: 20)
-                                Text("History")
-                                    .font(.caption2)
-                            }
-                            .foregroundColor(.themePurple)
-                        }
-                    }
-                    .padding(.horizontal, 30)
-                    .padding(.vertical, 10)
-                    .background(Color.white)
-                    .cornerRadius(30)
-                    .shadow(radius: 10)
-                    .padding(.horizontal, 20)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+                TabBar()
             }
         }
     }

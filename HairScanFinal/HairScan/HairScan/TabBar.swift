@@ -9,7 +9,58 @@ import SwiftUI
 
 struct TabBar: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            HStack(spacing: 40) {
+                
+                // DASHBOARD
+                NavigationLink(destination: DashboardView()) {
+                    VStack {
+                        Image("logo_dashboard")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                            .cornerRadius(70)
+                        Text("Dashboard")
+                            .font(.caption2)
+                            .fontWeight(.bold)
+                    }
+                    .foregroundColor(.themePurple)
+                }
+                
+                // CAMERA
+                NavigationLink(destination: CameraView()) {
+                    VStack {
+                        Image(systemName: "camera.fill")
+                            .resizable()
+                            .frame(width: 40, height: 32)
+                        Text("Camera")
+                            .font(.caption2)
+                            .fontWeight(.bold)
+                    }
+                    .foregroundColor(.themePurple)
+                }
+                
+                // HISTORY
+                NavigationLink(destination: HistoryView()) {
+                    VStack {
+                        Image(systemName: "list.bullet")
+                            .resizable()
+                            .frame(width: 25, height: 20)
+                        Text("History")
+                            .font(.caption2)
+                            .fontWeight(.bold)
+                    }
+                    .foregroundColor(.themePurple)
+                }
+            }
+            .padding(.horizontal, 30)
+            .padding(.vertical, 10)
+            .background(Color.lightBackground)
+            .opacity(80)
+            .cornerRadius(30)
+            .shadow(radius: 10)
+            .padding(.horizontal, 20)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
     }
 }
 
