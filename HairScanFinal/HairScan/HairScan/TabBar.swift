@@ -23,7 +23,7 @@ struct TabBar: View {
                             .font(.caption2)
                             .fontWeight(.bold)
                     }
-                    .foregroundColor(.themePurple)
+                    .foregroundColor(.themeBrown)
                 }
                 
                 // CAMERA
@@ -36,7 +36,7 @@ struct TabBar: View {
                             .font(.caption2)
                             .fontWeight(.bold)
                     }
-                    .foregroundColor(.themePurple)
+                    .foregroundColor(.themeBrown)
                 }
                 
                 // HISTORY
@@ -49,7 +49,7 @@ struct TabBar: View {
                             .font(.caption2)
                             .fontWeight(.bold)
                     }
-                    .foregroundColor(.themePurple)
+                    .foregroundColor(.themeBrown)
                 }
             }
             .padding(.horizontal, 30)
