@@ -15,7 +15,7 @@ extension Color {
     static let cardBackground = Color(red: 252/255.0, green: 246/255.0, blue: 241/255.0)
 }
 
-// MARK: - TipCard (Consiglio fotografico)
+/* MARK: - TipCard (Consiglio fotografico)
 struct TipCard: View {
     let icon: String
     let title: String
@@ -35,7 +35,7 @@ struct TipCard: View {
         }
         .padding(.vertical, 10)
     }
-}
+} */
 
 // MARK: - Home View
 struct Home: View {
@@ -107,11 +107,56 @@ struct Home: View {
                             Spacer()
                         }
                         .frame(maxWidth: .infinity)
-                        .frame(height: 220)
+                        .frame(height: 150)
                         .background(
                             RoundedRectangle(cornerRadius: 20)
                                 .fill(Color.themeBrown.opacity(0.61))
                         )
+                        
+                        
+                        // ----------------------------------------------------
+                        // 3. PULSANTE "TAKE A PICTURE"
+                        HStack{
+                            //Spacer all'inizio, spinge il pulsante a destra
+                            Spacer()
+                            
+                            Button(action: {}){
+                                Text("Take a picture")
+                                    .font(.custom("SerifMedium", size: 24))
+                                    .foregroundColor(Color.lightBackground)
+                            }
+                            .frame(maxWidth: 200)
+                            .frame(height: 40)
+                            .background(
+                                Capsule()
+                                    .fill(Color.themeText)
+                                    .shadow(color: Color.themeBrown, radius: 8, x: 5, y: 5)
+                                    .shadow(color: Color.lightBackground, radius: 8, x: -5, y: -5)
+                            )
+                            
+                            //Spacer alla fine, spinge il pulsante a sinistra "bilanciandolo" al centro
+                            Spacer()
+                        }
+                        
+                        
+                        // ----------------------------------------------------
+                        // 4. SEZIONE "PRODOTTI RACCOMANDATI"
+                        VStack(alignment: .leading){
+                            Text("Recommended products")
+                                .font(.custom("SerifMedium", size: 24))
+                                .foregroundColor(Color.themeText)
+                            
+                            // Richiamo la lista di prodotti all'interno di un HStack
+                            HStack(){
+                                ProductCard()
+                            }
+                            .background(Color.themeText)
+                            .cornerRadius(20)
+                        }
+                        
+                        // ----------------------------------------------------
+                        // 5. PANNELLO "HISTORY" CHE SI ALZA
+                        
                     }
                     .padding(.horizontal, 25)
                     .padding(.vertical, 10)
@@ -121,65 +166,12 @@ struct Home: View {
                             .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 3)
                     )
                     .padding(.horizontal, 20)
-                    
-                    VStack(alignment: .leading, spacing: 20){
-                        Button(action: {}){
-                            Text("Take a picture")
-                                .font(.title2)
-                                .foregroundColor(Color.lightBackground)
-                        }
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 40)
-                        .frame(width: 200)
-                        .background( RoundedRectangle(cornerRadius: 20)
-                            .fill(Color.themeBrown.opacity(0.61)))
-                    }
                 
                     Spacer()
                 }
                 .padding(.top, 0)
                 
             }
-        }
-    }
-}
-
-// MARK: - Schermate di destinazione (placeholder)
-struct DashboardView: View {
-    var body: some View {
-        VStack {
-            Text("📊 Dashboard")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-            Text("Qui verranno mostrate le statistiche e i risultati delle analisi.")
-                .foregroundColor(.gray)
-                .padding()
-        }
-    }
-}
-
-struct CameraView: View {
-    var body: some View {
-        VStack {
-            Text("📷 Camera")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-            Text("Qui potrai scattare e analizzare le foto dei capelli.")
-                .foregroundColor(.gray)
-                .padding()
-        }
-    }
-}
-
-struct HistoryView: View {
-    var body: some View {
-        VStack {
-            Text("🕘 History")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-            Text("Qui troverai lo storico delle scansioni effettuate.")
-                .foregroundColor(.gray)
-                .padding()
         }
     }
 }

@@ -7,6 +7,46 @@
 
 import SwiftUI
 
+// MARK: - Schermate di destinazione (placeholder)
+struct DashboardView: View {
+    var body: some View {
+        VStack {
+            Text("📊 Dashboard")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+            Text("Qui verranno mostrate le statistiche e i risultati delle analisi.")
+                .foregroundColor(.gray)
+                .padding()
+        }
+    }
+}
+
+struct CameraView: View {
+    var body: some View {
+        VStack {
+            Text("📷 Camera")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+            Text("Qui potrai scattare e analizzare le foto dei capelli.")
+                .foregroundColor(.gray)
+                .padding()
+        }
+    }
+}
+
+struct HistoryView: View {
+    var body: some View {
+        VStack {
+            Text("🕘 History")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+            Text("Qui troverai lo storico delle scansioni effettuate.")
+                .foregroundColor(.gray)
+                .padding()
+        }
+    }
+}
+
 struct TabBar: View {
     var body: some View {
         VStack {
