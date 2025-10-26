@@ -153,7 +153,7 @@ struct Home: View {
         // 5. PANNELLO "HISTORY" CHE SI ALZA
         .sheet(isPresented: $isHistorySheetPresented){
             History()
-                .presentationDetents([.fraction(0.1), .fraction(0.9)])
+                .presentationDetents([.fraction(0.07), .fraction(0.9)])
                 // Rende la maniglia visibile
                 .presentationDragIndicator(.visible)
                 // Evita che lo slider scompaia del tutto quando trascinato in basso
