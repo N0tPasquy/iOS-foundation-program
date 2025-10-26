@@ -15,31 +15,9 @@ extension Color {
     static let cardBackground = Color(red: 252/255.0, green: 246/255.0, blue: 241/255.0)
 }
 
-/* MARK: - TipCard (Consiglio fotografico)
-struct TipCard: View {
-    let icon: String
-    let title: String
-    
-    var body: some View {
-        HStack(spacing: 15) {
-            Image(systemName: icon)
-                .font(.title2)
-                .foregroundColor(.themeBrown)
-            
-            Text(title)
-                .font(.custom("SerifMedium", size: 20))
-                .fontWeight(.medium)
-                .foregroundColor(Color.themeBrown)
-            
-            Spacer()
-        }
-        .padding(.vertical, 10)
-    }
-} */
-
 // MARK: - Home View
 struct Home: View {
-    @State private var selectedTab: String = "Dashboard"
+    @State private var isHistorySheetPresented: Bool = true
     
     var body: some View {
         NavigationStack {
@@ -153,10 +131,6 @@ struct Home: View {
                             .background(Color.themeText)
                             .cornerRadius(20)
                         }
-                        
-                        // ----------------------------------------------------
-                        // 5. PANNELLO "HISTORY" CHE SI ALZA
-                        
                     }
                     .padding(.horizontal, 25)
                     .padding(.vertical, 10)
@@ -168,11 +142,26 @@ struct Home: View {
                     .padding(.horizontal, 20)
                 
                     Spacer()
+                    
                 }
                 .padding(.top, 0)
                 
             }
         }
+        
+        // ----------------------------------------------------
+        // 5. PANNELLO "HISTORY" CHE SI ALZA
+        .sheet(isPresented: $isHistorySheetPresented){
+            History()
+                .presentationDetents([.fraction(0.1), .fraction(0.9)])
+                // Rende la maniglia visibile
+                .presentationDragIndicator(.visible)
+                // Evita che lo slider scompaia del tutto quando trascinato in basso
+                .interactiveDismissDisabled(true)
+                // Evita che lo slider si metta in primo piano e lascia interagire anche con la schermata Home
+                .presentationBackgroundInteraction(.enabled)
+        }
+        
     }
 }
 
