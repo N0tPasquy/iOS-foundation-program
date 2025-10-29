@@ -21,7 +21,7 @@ let sampleResults: [AnalysisResult] = [
 ]
 
 struct HistoryCard: View { // NOME CORRETTO: HistoryCard
-    let result: AnalysisResult // Richiede un dato da mostrare
+    @Binding var result: AnalysisResult // Richiede un dato da mostrare
     
     var body: some View {
         
@@ -84,6 +84,6 @@ struct HistoryCard: View { // NOME CORRETTO: HistoryCard
 
 // Preview della singola Card
 #Preview {
-    HistoryCard(result: sampleResults[0])
-        .padding()
+   // HistoryCard(result: AnalysisResult(healthStatus: "Healty", maskName: "Mask name"))
+     //   .padding()
 }
