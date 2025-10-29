@@ -36,7 +36,7 @@ struct History: View {
                         .padding(.top, 20)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         ScrollView{
-                            
+                            //qui vanno tutte le card
                         }
                         HStack{
                             Button(action: {
@@ -54,6 +54,7 @@ struct History: View {
                                 .shadow(color: Color.gray.opacity(0.2), radius: 8, x: -5, y: -5)
                                 .shadow(color: Color.black.opacity(0.3), radius: 8, x: 5, y: 5)
                         )
+                        .padding(.bottom, 15)
                         Spacer()
                     }
                     .background(Color.white.opacity(0.81))
