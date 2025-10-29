@@ -36,8 +36,9 @@ struct History: View {
                         .padding(.top, 20)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         ScrollView{
-                            
+                            HistoryCard(result: AnalysisResult(healthStatus: "Healty", maskName: "Mask name"))
                         }
+                        .padding(.horizontal, 20)
                         HStack{
                             Button(action: {
                     
