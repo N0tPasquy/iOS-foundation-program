@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//Aggiunta struct
 struct AnalysisResult: Identifiable {
     let id = UUID()
     let healthStatus: String // Es: "Healty", "Damaged"
