@@ -15,7 +15,7 @@ struct History: View {
         VStack {
             // Se vuoi che il titolo "History" appaia solo quando è basso:
             Text("History")
-                .font(.title)
+                .font(.custom("SerifMedium", size: 30))
                 .foregroundColor(.lightBackground)
                 .padding(.top, 20)
             

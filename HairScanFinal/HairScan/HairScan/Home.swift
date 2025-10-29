@@ -33,55 +33,56 @@ struct Home: View {
                     HStack {
                         Text("HAIRSCAN")
                             .font(.custom("SerifMedium", size: 32))
-                            .fontWeight(.bold)
+                            .bold()
                             .foregroundColor(Color.themeText)
                         
                         Spacer()
                         
                         Button(action: {
-                            print("⚙️ Impostazioni aperte")
+                            print("Prova pulsante impostazioni")
                         }) {
                             Image(systemName: "gearshape.fill")
-                                .font(.title2)
                                 .foregroundColor(Color.themeBrown)
                         }
                     }
-                    .padding(.horizontal, 25)
-                    .padding(.top, 20)
+                    .padding(.horizontal, 20)
+                    .padding(.top, 25)
                     
                     // ----------------------------------------------------
-                    // 2. BLOCCO PRINCIPALE (Welcome + Last Scan)
+                    // 2. PRIMO BLOCCO (Welcome + Last Scan
+                    
+                    // VStack principale che contiene gli altri VStack
                     VStack(alignment: .leading, spacing: 20) {
                         
+                        //VStack della scritta di benvenuto
                         VStack(alignment: .leading, spacing: 5) {
                             Text("Welcome,")
                                 .font(.custom("SerifMedium", size: 42))
                                 .foregroundColor(Color.themeText)
                             
-                            Text("Take care of your hair health,\nperform a scan")
+                            Text("Take care of your hair health,\ntake a scan")
                                 .font(.custom("SerifMedium", size: 20))
                                 .foregroundColor(.themeText)
                         }
                         
+                        //VStack usato per creare il blocco chiaro "Last scan"
                         VStack {
                             Text("LAST SCAN")
                                 .font(.custom("SerifMedium", size: 22))
                                 .foregroundColor(.white)
-                                .padding(.horizontal, 15)
+                                .padding(.horizontal, 13)
                                 .padding(.vertical, 5)
-                                .background(Capsule().fill(Color.lightBackground).opacity(0.57))
+                                .background(Capsule().fill(Color.lightBackground).opacity(0.57)) //Capsule() serve per rendere il blocco arrotondato. I padding per le dimensioni
                             
+                            //Spacer che spinge in alto il blocco chiaro
                             Spacer()
                             
                             VStack(spacing: 10) {
-                                /*Image(systemName: "camera.shutter.button")
-                                    .font(.system(size: 60))
-                                    .foregroundColor(.themeBrown)*/
-                                
                                 Text("No scan found")
                                     .font(.custom("SerifMedium", size: 22))
                                     .foregroundColor(.lightBackground)
                             }
+                            //Spacer che spinge il testo al centro del blocco
                             Spacer()
                         }
                         .frame(maxWidth: .infinity)
@@ -89,11 +90,13 @@ struct Home: View {
                         .background(
                             RoundedRectangle(cornerRadius: 20)
                                 .fill(Color.themeBrown.opacity(0.61))
+                            // frame indica la dimensione del blocco rispetto allo schermo
                         )
                         
                         
                         // ----------------------------------------------------
                         // 3. PULSANTE "TAKE A PICTURE"
+                        // Utilizzo un HStack per allineare il pulsante al cenrtro dello schermo
                         HStack{
                             //Spacer all'inizio, spinge il pulsante a destra
                             Spacer()
@@ -111,6 +114,7 @@ struct Home: View {
                                     .shadow(color: Color.themeBrown, radius: 8, x: 5, y: 5)
                                     .shadow(color: Color.lightBackground, radius: 8, x: -5, y: -5)
                             )
+                            // Nel pulsante aggiungo delle ombre per dargli un effetto di profondità
                             
                             //Spacer alla fine, spinge il pulsante a sinistra "bilanciandolo" al centro
                             Spacer()
@@ -119,6 +123,7 @@ struct Home: View {
                         
                         // ----------------------------------------------------
                         // 4. SEZIONE "PRODOTTI RACCOMANDATI"
+                        // All'interno del VStack ci sono due elementi, il primo testo e la lista di prodotti
                         VStack(alignment: .leading){
                             Text("Recommended products")
                                 .font(.custom("SerifMedium", size: 24))
@@ -150,10 +155,11 @@ struct Home: View {
         }
         
         // ----------------------------------------------------
-        // 5. PANNELLO "HISTORY" CHE SI ALZA
+        // 5. SLIDER "HISTORY"
+        // Aggiunto alla fine di NavigationStack per farlo apparire in basso allo schermo
         .sheet(isPresented: $isHistorySheetPresented){
             History()
-                .presentationDetents([.fraction(0.07), .fraction(0.9)])
+                .presentationDetents([.fraction(0.1), .fraction(0.9)])
                 // Rende la maniglia visibile
                 .presentationDragIndicator(.visible)
                 // Evita che lo slider scompaia del tutto quando trascinato in basso
@@ -161,11 +167,9 @@ struct Home: View {
                 // Evita che lo slider si metta in primo piano e lascia interagire anche con la schermata Home
                 .presentationBackgroundInteraction(.enabled)
         }
-        
     }
 }
 
 #Preview {
     Home()
 }
-
