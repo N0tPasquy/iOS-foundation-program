@@ -12,7 +12,6 @@ extension Color {
     static let themeBrown = Color(red: 133/255.0, green: 74/255.0, blue: 20/255.0)
     static let themeText = Color(red: 179/255.0, green: 141/255.0, blue: 105/255.0)
     static let lightBackground = Color(red: 244/255.0, green: 232/255.0, blue: 219/255.0)
-    static let cardBackground = Color(red: 252/255.0, green: 246/255.0, blue: 241/255.0)
 }
 
 // MARK: - Home View
@@ -85,7 +84,6 @@ struct Home: View {
                             .padding(.bottom, 30)
                             .padding(.top, 10)
                     }
-                    // Rimuoviamo il padding orizzontale da questo VStack, in quanto gestiamo il padding internamente sopra
                     .background(Color.white.opacity(0.81))
                 }
                 .cornerRadius(40)
@@ -98,16 +96,18 @@ struct Home: View {
                 VStack{
                     VStack(alignment: .leading, spacing: 5){
                         HStack{
-                            Text("Last scan :")
+                            Text("Last scan:")
                                 .font(.custom("SerifMedium", size: 35))
                                 .foregroundColor(Color.themeText)
                             
                             Spacer()
                             
                             Button(action: {}){
-                                Text("+ Show all")
+                                Text("Show all")
+                                    .fontWeight(.heavy)
                                     .font(.custom("SF pro", size: 16))
-                                    .foregroundColor(Color.themeText.opacity(80))
+                                    .foregroundColor(Color.themeBrown)
+                                    .underline()
                             }
                         }
                         .padding(.horizontal, 40)
@@ -115,7 +115,7 @@ struct Home: View {
                         
                         VStack{
                             Text("HEALTHY")
-                                .font(.custom("SerifMedium", size: 20))
+                                .font(.custom("SF pro", size: 20))
                                 .foregroundColor(Color.themeBrown)
                                 .bold()
                         }
@@ -133,7 +133,7 @@ struct Home: View {
                         
                         VStack{
                             Text("Quì andranno i suggerimenti ")
-                                .font(.custom("SerifMedium", size: 20))
+                                .font(.custom("SF pro", size: 20))
                                 .foregroundColor(Color.themeBrown)
                                 .bold()
                         }
