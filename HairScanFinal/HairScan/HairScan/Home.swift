@@ -17,155 +17,140 @@ extension Color {
 
 // MARK: - Home View
 struct Home: View {
-    @State private var isHistorySheetPresented: Bool = true
-    
     var body: some View {
-        NavigationStack {
-            ZStack(alignment: .top) {
-                
-                // Sfondo
-                Color.lightBackground.ignoresSafeArea(.all)
-                
-                VStack(spacing: 30) {
+        // Usa ZStack per posizionare lo sfondo sotto il contenuto
+        ZStack(alignment: .top) {
+            // Sfondo
+            Color.lightBackground.ignoresSafeArea(.all)
+             
+            VStack(alignment: .center) { // Contenitore verticale principale
+                 
+                // ----------------------------------------------------
+                // 1. HEADER
+                HStack {
+                    Text("HAIRSCAN")
+                        .font(.custom("SerifMedium", size: 22))
+                        .bold()
+                        .foregroundColor(Color.themeText)
                     
-                    // ----------------------------------------------------
-                    // 1. HEADER
-                    HStack {
-                        Text("HAIRSCAN")
-                            .font(.custom("SerifMedium", size: 32))
-                            .bold()
-                            .foregroundColor(Color.themeText)
-                        
-                        Spacer()
-                        
-                        Button(action: {
-                            print("Prova pulsante impostazioni")
-                        }) {
-                            Image(systemName: "gearshape.fill")
-                                .foregroundColor(Color.themeBrown)
-                        }
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.top, 25)
-                    
-                    // ----------------------------------------------------
-                    // 2. PRIMO BLOCCO (Welcome + Last Scan
-                    
-                    // VStack principale che contiene gli altri VStack
-                    VStack(alignment: .leading, spacing: 20) {
-                        
+                    Spacer() // Spinge la scritta HairScan a sinistra
+                }
+                .padding(.horizontal, 30)
+                .padding(.top, 15)
+                 
+                // ----------------------------------------------------
+                // 2. PRIMO BLOCCO (Welcome + Scan)
+                // Usiamo uno Spacer in cima a questo blocco per spingerlo leggermente in giù
+                // e separarlo dall'header, se necessario.
+                // Basandomi sull'immagine, non serve, quindi lo lasciamo partire in alto
+                 
+                VStack{ // Contenitore per la card Welcome
+                    VStack(alignment: .center){
+                         
                         //VStack della scritta di benvenuto
                         VStack(alignment: .leading, spacing: 5) {
                             Text("Welcome,")
                                 .font(.custom("SerifMedium", size: 42))
                                 .foregroundColor(Color.themeText)
-                            
-                            Text("Take care of your hair health,\ntake a scan")
-                                .font(.custom("SerifMedium", size: 20))
+                             
+                            Text("Take care of your hair health, take a scan")
+                                .font(.custom("SerifMedium", size: 19))
                                 .foregroundColor(.themeText)
                         }
+                        // Padding orizzontale solo per i testi di benvenuto
+                        .padding(.horizontal, 40)
+                        .padding(.bottom, 30)
+                        .padding(.top, 20)
+                        .frame(maxWidth: .infinity, alignment: .leading) // Assicura che i testi siano allineati a sinistra all'interno della card
                         
-                        //VStack usato per creare il blocco chiaro "Last scan"
-                        VStack {
-                            Text("LAST SCAN")
-                                .font(.custom("SerifMedium", size: 22))
-                                .foregroundColor(.white)
-                                .padding(.horizontal, 13)
-                                .padding(.vertical, 5)
-                                .background(Capsule().fill(Color.lightBackground).opacity(0.57)) //Capsule() serve per rendere il blocco arrotondato. I padding per le dimensioni
-                            
-                            //Spacer che spinge in alto il blocco chiaro
-                            Spacer()
-                            
-                            VStack(spacing: 10) {
-                                Text("No scan found")
-                                    .font(.custom("SerifMedium", size: 22))
-                                    .foregroundColor(.lightBackground)
+                        // Bottone con effetto Neumorphism (bolla)
+                        VStack{
+                            Button(action: {}){
+                                Image(systemName:"camera.shutter.button.fill")
+                                    .font(.system(size: 60))
+                                    .foregroundColor(Color.themeText)
                             }
-                            //Spacer che spinge il testo al centro del blocco
-                            Spacer()
                         }
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 150)
+                        .padding(30)
                         .background(
-                            RoundedRectangle(cornerRadius: 20)
-                                .fill(Color.themeBrown.opacity(0.61))
-                            // frame indica la dimensione del blocco rispetto allo schermo
+                            RoundedRectangle(cornerRadius: 45)
+                                .fill(Color.white)
+                                .shadow(color: Color.gray.opacity(0.2), radius: 8, x: -5, y: -5)
+                                .shadow(color: Color.black.opacity(0.3), radius: 8, x: 5, y: 5)
                         )
-                        
-                        
-                        // ----------------------------------------------------
-                        // 3. PULSANTE "TAKE A PICTURE"
-                        // Utilizzo un HStack per allineare il pulsante al cenrtro dello schermo
+                         
+                        Text("Add photo from camera or gallery")
+                            .font(.custom("SF pro", size: 14))
+                            .foregroundColor(Color.themeText.opacity(0.90))
+                            .padding(.bottom, 30)
+                            .padding(.top, 10)
+                    }
+                    // Rimuoviamo il padding orizzontale da questo VStack, in quanto gestiamo il padding internamente sopra
+                    .background(Color.white.opacity(0.81))
+                }
+                .cornerRadius(40)
+                .padding(.top, 10) // Aggiunge spazio tra l'header e la card
+                .padding(.horizontal, 10)
+                
+                // ----------------------------
+                // INIZIO SECONDO CONTENITORE
+                
+                VStack{
+                    VStack(alignment: .leading, spacing: 5){
                         HStack{
-                            //Spacer all'inizio, spinge il pulsante a destra
+                            Text("Last scan :")
+                                .font(.custom("SerifMedium", size: 35))
+                                .foregroundColor(Color.themeText)
+                            
                             Spacer()
                             
                             Button(action: {}){
-                                Text("Take a picture")
-                                    .font(.custom("SerifMedium", size: 24))
-                                    .foregroundColor(Color.lightBackground)
+                                Text("+ Show all")
+                                    .font(.custom("SF pro", size: 16))
+                                    .foregroundColor(Color.themeText.opacity(80))
                             }
-                            .frame(maxWidth: 200)
-                            .frame(height: 40)
-                            .background(
-                                Capsule()
-                                    .fill(Color.themeText)
-                                    .shadow(color: Color.themeBrown, radius: 8, x: 5, y: 5)
-                                    .shadow(color: Color.lightBackground, radius: 8, x: -5, y: -5)
-                            )
-                            // Nel pulsante aggiungo delle ombre per dargli un effetto di profondità
-                            
-                            //Spacer alla fine, spinge il pulsante a sinistra "bilanciandolo" al centro
-                            Spacer()
                         }
+                        .padding(.horizontal, 40)
+                        .padding(.top, 30)
                         
+                        VStack{
+                            Text("HEALTHY")
+                                .font(.custom("SerifMedium", size: 20))
+                                .foregroundColor(Color.themeBrown)
+                                .bold()
+                        }
+                        .padding(.horizontal, 40)
+                        .padding(.top, 10)
                         
-                        // ----------------------------------------------------
-                        // 4. SEZIONE "PRODOTTI RACCOMANDATI"
-                        // All'interno del VStack ci sono due elementi, il primo testo e la lista di prodotti
-                        VStack(alignment: .leading){
-                            Text("Recommended products")
+                        //Here
+                        VStack{
+                            Text("Suggestion")
                                 .font(.custom("SerifMedium", size: 24))
                                 .foregroundColor(Color.themeText)
-                            
-                            // Richiamo la lista di prodotti all'interno di un HStack
-                            HStack(){
-                                ProductCard()
-                            }
-                            .background(Color.themeText)
-                            .cornerRadius(20)
                         }
+                        .padding(.horizontal, 40)
+                        .padding(.top, 30)
+                        
+                        VStack{
+                            Text("Quì andranno i suggerimenti ")
+                                .font(.custom("SerifMedium", size: 20))
+                                .foregroundColor(Color.themeBrown)
+                                .bold()
+                        }
+                        .padding(.horizontal, 40)
+                        .padding(.top, 10)
+                        
+                        Spacer()
                     }
-                    .padding(.horizontal, 25)
-                    .padding(.vertical, 10)
-                    .background(
-                        RoundedRectangle(cornerRadius: 30)
-                            .fill(Color.cardBackground)
-                            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 3)
-                    )
-                    .padding(.horizontal, 20)
-                
-                    Spacer()
-                    
+                    .background(Color.white.opacity(0.81))
                 }
-                .padding(.top, 0)
+                .cornerRadius(40)
+                .padding(.top, 30) // Aggiunge spazio tra l'header e la card
+                .padding(.horizontal, 10)
                 
+
+                Spacer() // <-- QUESTO SPACER SPINGE TUTTO IL CONTENUTO SOPRA DI ESSO IN ALTO
             }
-        }
-        
-        // ----------------------------------------------------
-        // 5. SLIDER "HISTORY"
-        // Aggiunto alla fine di NavigationStack per farlo apparire in basso allo schermo
-        .sheet(isPresented: $isHistorySheetPresented){
-            History()
-                .presentationDetents([.fraction(0.1), .fraction(0.9)])
-                // Rende la maniglia visibile
-                .presentationDragIndicator(.visible)
-                // Evita che lo slider scompaia del tutto quando trascinato in basso
-                .interactiveDismissDisabled(true)
-                // Evita che lo slider si metta in primo piano e lascia interagire anche con la schermata Home
-                .presentationBackgroundInteraction(.enabled)
         }
     }
 }
