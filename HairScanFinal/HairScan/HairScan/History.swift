@@ -7,13 +7,12 @@
 
 import SwiftUI
 
-// Rinomina la struct per chiarezza (non chiamarla History se non è la schermata principale)
 struct History: View {
     
     var body: some View {
-        ZStack(alignment: .top){
+        ZStack{
             Color.lightBackground.ignoresSafeArea(.all)
-            VStack(alignment: .center){
+            VStack(alignment: .leading){
                 HStack {
                     Text("HAIRSCAN")
                         .font(.custom("SerifMedium", size: 22))
@@ -36,28 +35,32 @@ struct History: View {
                         .padding(.bottom, 30)
                         .padding(.top, 20)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        
+                        ScrollView{
+                            
+                        }
                         HStack{
-                            Button(action: {}){
+                            Button(action: {
+                    
+                            }){
                                 Image(systemName:"arrowshape.turn.up.left.fill")
-                                    .font(.system(size: 20))
+                                    .font(.system(size: 25))
                                     .foregroundColor(Color.white)
                             }
                         }
-                        .padding(30)
+                        .padding(12)
                         .background(
                             RoundedRectangle(cornerRadius: 45)
                                 .fill(Color.themeText)
                                 .shadow(color: Color.gray.opacity(0.2), radius: 8, x: -5, y: -5)
                                 .shadow(color: Color.black.opacity(0.3), radius: 8, x: 5, y: 5)
                         )
+                        Spacer()
                     }
                     .background(Color.white.opacity(0.81))
                 }
                 .cornerRadius(40)
                 .padding(.top, 10) // Aggiunge spazio tra l'header e la card
                 .padding(.horizontal, 10)
-                
             }
         }
     }
@@ -66,6 +69,6 @@ struct History: View {
 
 #Preview {
     History()
-        .frame(height: 200) // Simula l'altezza iniziale
+      
 }
 
