@@ -9,10 +9,10 @@ import SwiftUI
 
 struct History: View {
     var HistoryArray = [AnalysisResult(healthStatus: "Healty", maskName: "Mask name"),
-                        AnalysisResult(healthStatus: "Healty", maskName: "Mask name"),
-                        AnalysisResult(healthStatus: "Healty", maskName: "Mask name"),
-                        AnalysisResult(healthStatus: "Healty", maskName: "Mask name"),
-                        AnalysisResult(healthStatus: "Healty", maskName: "Mask name")]
+                        AnalysisResult(healthStatus: "Damaged", maskName: "Mask name"),
+                        AnalysisResult(healthStatus: "Damaged", maskName: "Mask name"),
+                        AnalysisResult(healthStatus: "Very damaged", maskName: "Mask name"),
+                        AnalysisResult(healthStatus: "Very damaged", maskName: "Mask name")]
     
     var body: some View {
         @State var result = AnalysisResult(healthStatus: "Healty", maskName: "Mask name")
@@ -43,15 +43,16 @@ struct History: View {
                             .padding(.bottom, 30)
                             .padding(.top, 20)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            // ScrollView{
+                            
                             List(HistoryArray) { result in
-                                NavigationLink(destination: ProductCard()){ // Invece che ProductCard mettere la vista delle informazioni
+                                NavigationLink(destination: ProductCard()){ // Modificare ProductCard in modo che contenga le informazioni della maschera. Tutto in modo dinamico
                                     HistoryCard(result: $result)
                                 }
-                                
-                            }
-                            
-                            //}
+                                .listRowBackground(Color.clear) // Rende lo sfondo della RIGA trasparente
+                                .listRowSeparator(.hidden) // Nasconde le linee separatore
+                           }
+                            .scrollContentBackground(.hidden) // Rende lo sfondo della LISTA trasparente
+                            .listStyle(.plain) // Assicura lo stile più semplice
                             .padding(.horizontal, 20)
                         }
                         .background(Color.white.opacity(0.81))

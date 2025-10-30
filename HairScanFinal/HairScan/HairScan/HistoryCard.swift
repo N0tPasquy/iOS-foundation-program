@@ -14,12 +14,6 @@ struct AnalysisResult: Identifiable {
     let maskName: String     // Es: "Mask name"
 }
 
-// Dati di esempio per i Preview (da rimuovere in produzione)
-let sampleResults: [AnalysisResult] = [
-    AnalysisResult(healthStatus: "Healty", maskName: "Mask name"),
-    // ...
-]
-
 struct HistoryCard: View { // NOME CORRETTO: HistoryCard
     @Binding var result: AnalysisResult // Richiede un dato da mostrare
     

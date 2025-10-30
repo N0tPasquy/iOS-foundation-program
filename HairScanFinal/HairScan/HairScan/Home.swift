@@ -40,14 +40,13 @@ struct Home: View {
                     
                     // ----------------------------------------------------
                     // 2. PRIMO BLOCCO (Welcome + Scan)
-                    // Usiamo uno Spacer in cima a questo blocco per spingerlo leggermente in giù
-                    // e separarlo dall'header, se necessario.
-                    // Basandomi sull'immagine, non serve, quindi lo lasciamo partire in alto
                     
                     WelcomeView()
                     
                     // ----------------------------
-                    // INIZIO SECONDO CONTENITORE
+                    // INIZIO SECONDO BLOCCO (Last scan + History)
+                    
+                    
                     LastScanView()
                     
                     
