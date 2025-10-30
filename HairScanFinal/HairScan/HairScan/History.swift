@@ -14,10 +14,11 @@ struct History: View {
                         AnalysisResult(healthStatus: "Very damaged", maskName: "Mask name"),
                         AnalysisResult(healthStatus: "Very damaged", maskName: "Mask name")]
     
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         @State var result = AnalysisResult(healthStatus: "Healty", maskName: "Mask name")
       
-        NavigationView {
             ZStack{
                 Color.lightBackground.ignoresSafeArea(.all)
                 VStack(alignment: .leading){
@@ -60,6 +61,23 @@ struct History: View {
                     .cornerRadius(40)
                     .padding(.top, 10) // Aggiunge spazio tra l'header e la card
                     .padding(.horizontal, 10)
+                }
+            }
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        dismiss() // Azione per tornare indietro
+                    }) {
+                        HStack(spacing: 4) { // Un Hstack per icona e testo
+                            Image(systemName: "chevron.left")
+                            // Regola la dimensione e il peso come preferisci
+                                .font(.system(size: 18, weight: .medium))
+                            Text("Back")
+                            // Usa il tuo font personalizzato
+                                .font(.custom("SerifMedium", size: 18))
+                        }
+                        .foregroundColor(Color.themeText) // Usa il tuo colore personalizzato
                 }
             }
         }
