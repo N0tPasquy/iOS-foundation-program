@@ -16,64 +16,45 @@ struct AnalysisResult: Identifiable {
 }
 
 struct HistoryCard: View {
-    @Binding var result: AnalysisResult // Richiede un dato da mostrare
+    @Binding var result: AnalysisResult
     
     var body: some View {
-        
-        // 1. Avvolgiamo tutto il design in un Button
-        Button(action: {
-            // AZIONE DA ESEGUIRE AL CLICK DELLA CARD (es. Mostra Dettagli)
-            print("Card History cliccata per: \(result.healthStatus)")
-        }) {
-            // 2. Contenuto visivo della Card
-            HStack(spacing: 20) {
-                
-                // Blocco FOTO
-                RoundedRectangle(cornerRadius: 15)
-                    .fill(Color.white.opacity(0.8))
-                    .frame(width: 80, height: 80)
-                    .overlay(
-                        // Invece che Text() va inserita l'immagine salvata localmente
-                        Text("Photo")
-                            .font(.custom("SerifMedium", size: 18))
-                            .foregroundColor(Color.themeText)
-                    )
-                
-                // Blocco TESTI
-                VStack(alignment: .leading, spacing: 5) {
-                    Text("\(result.healthStatus)")
-                        .font(.custom("SerifMedium", size: 22))
-                        .foregroundColor(Color.themeText)
-                    
-                    Text("\(result.maskName)")
+        HStack(spacing: 20) {
+            RoundedRectangle(cornerRadius: 15)
+                .fill(Color.white.opacity(0.8))
+                .frame(width: 80, height: 80)
+                .overlay(
+                    Text("Photo")
                         .font(.custom("SerifMedium", size: 18))
                         .foregroundColor(Color.themeText)
-                }
+                )
+            
+            VStack(alignment: .leading, spacing: 5) {
+                Text(result.healthStatus)
+                    .font(.custom("SerifMedium", size: 22))
+                    .foregroundColor(Color.themeText)
                 
-                Spacer() // Spinge il cestino all'estrema destra
-                
-                // Icona CESTINO (deve essere un Button separato se ha un'azione diversa)
-                Button(action: {
-                    // AZIONE DI ELIMINAZIONE
-                    print("Elimina elemento: \(result.healthStatus)")
-                }) {
-                    Image(systemName: "trash.fill")
-                        .font(.title2)
-                        .foregroundColor(.themeBrown)
-                }
-                // Molto importante: usa .plain per il cestino, altrimenti l'azione del cestino
-                // verrebbe annullata dal Button genitore.
-                .buttonStyle(.plain)
+                Text(result.maskName)
+                    .font(.custom("SerifMedium", size: 18))
+                    .foregroundColor(Color.themeText)
             }
-            .padding(15)
-            .background(
-                // 3. Il background scuro della card
-                RoundedRectangle(cornerRadius: 20)
-                    .fill(Color.lightBackground)
-            )
+            
+            Spacer()
+            
+            Button(action: {
+                print("Elimina elemento: \(result.maskName)")
+            }) {
+                Image(systemName: "trash.fill")
+                    .font(.title2)
+                    .foregroundColor(.themeBrown)
+            }
+            .buttonStyle(.plain)
         }
-        // 4. Modificatore cruciale per la Card: annulla lo stile predefinito del Button
-        .buttonStyle(.plain)
+        .padding(15)
+        .background(
+            RoundedRectangle(cornerRadius: 20)
+                .fill(Color.lightBackground)
+        )
     }
 }
 

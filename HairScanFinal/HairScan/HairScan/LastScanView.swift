@@ -35,7 +35,7 @@ struct LastScanView: View {
                 
                 // 🔹 Risultato della scansione
                 VStack {
-                    Text(viewModel.risultatoFinale.isEmpty ? "—" : viewModel.risultatoFinale.uppercased())
+                    Text(viewModel.risultatoFinale.isEmpty ? "Nessuna scansione effettuata" : viewModel.risultatoFinale.uppercased())
                         .font(.custom("SF pro", size: 20))
                         .foregroundColor(Color.themeBrown)
                         .bold()
@@ -66,8 +66,8 @@ struct LastScanView: View {
                     VStack {
                         Text("Nessun suggerimento disponibile")
                             .font(.custom("SF pro", size: 18))
-                            .foregroundColor(.gray)
-                            .italic()
+                            .foregroundColor(Color.themeBrown)
+                            .bold()
                     }
                     .padding(.horizontal, 40)
                     .padding(.top, 10)

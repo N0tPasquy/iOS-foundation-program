@@ -44,13 +44,18 @@ struct History: View {
                         
                         // 🔹 LISTA DELLA STORIA
                         if viewModel.historyResults.isEmpty {
+                            Spacer()
                             Text("Nessuna analisi ancora effettuata.")
                                 .font(.custom("SF pro", size: 18))
                                 .foregroundColor(.gray)
                                 .padding(.top, 50)
+                            Spacer()
                         } else {
                             List($viewModel.historyResults) { $result in
-                                NavigationLink(destination: maskInfo()) { // 🔸 Modifica futura: passa info maschera
+                                NavigationLink(destination: MaskInfo(
+                                        hairCondition: result.healthStatus,
+                                        maskName: result.maskName
+                                )) { // 🔸 Modifica futura: passa info maschera
                                     HistoryCard(result: $result)
                                 }
                                 .listRowBackground(Color.clear)
