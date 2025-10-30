@@ -15,8 +15,8 @@ struct WelcomeView: View {
     /// 1. Aggiunto il ViewModel
     // @StateObject assicura che il ViewModel viva
     // per tutto il ciclo di vita della View.
-    @StateObject private var viewModel = WelcomeViewModel()
-    
+    //@StateObject private var viewModel = WelcomeViewModel()
+    @ObservedObject var viewModel: WelcomeViewModel
     /// 2. Aggiunte variabili di stato per gestire il flusso dell'Image Picker
     @State private var showImagePickerOptions = false
     @State private var showImagePicker = false
@@ -118,5 +118,8 @@ struct WelcomeView: View {
     }
 }
 #Preview {
-    WelcomeView()
+    let vm = WelcomeViewModel()
+    vm.risultatoFinale = "Healthy"
+    vm.selectedMask = healthyHairMasks.first
+    return WelcomeView(viewModel: vm)
 }

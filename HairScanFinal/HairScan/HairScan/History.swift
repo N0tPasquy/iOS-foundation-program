@@ -4,39 +4,36 @@
 //
 //  Created by Pasquale Pagano on 26/10/25.
 //
-/*
+
 import SwiftUI
 
 struct History: View {
-    @State private var historyArray: [AnalysisResult] = [
-        AnalysisResult(healthStatus: "Healty", maskName: "Mask name"),
-        AnalysisResult(healthStatus: "Damaged", maskName: "Mask name"),
-        AnalysisResult(healthStatus: "Damaged", maskName: "Mask name"),
-        AnalysisResult(healthStatus: "Very damaged", maskName: "Mask name"),
-        AnalysisResult(healthStatus: "Very damaged", maskName: "Mask name")
-    ]
-    
+    @ObservedObject var viewModel: WelcomeViewModel   // 👈 collegamento con il ViewModel condiviso
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        ZStack{
+        ZStack {
             Color.lightBackground.ignoresSafeArea(.all)
-            VStack(alignment: .leading){
+            
+            VStack(alignment: .leading) {
+                
+                // HEADER
                 HStack {
                     Text("HAIRSCAN")
                         .font(.custom("SerifMedium", size: 22))
                         .bold()
                         .foregroundColor(Color.themeText)
                     
-                    Spacer() // Spinge la scritta HairScan a sinistra
+                    Spacer()
                 }
                 .padding(.horizontal, 30)
                 .padding(.top, 15)
                 
-                VStack{
-                    VStack(alignment: .center){
-                        VStack(alignment: .leading, spacing: 5){
-                            Text("Analysis history: ")
+                // CONTENUTO PRINCIPALE
+                VStack {
+                    VStack(alignment: .center) {
+                        VStack(alignment: .leading, spacing: 5) {
+                            Text("Analysis history:")
                                 .font(.custom("SerifMedium", size: 42))
                                 .foregroundColor(Color.themeText)
                         }
@@ -45,21 +42,29 @@ struct History: View {
                         .padding(.top, 20)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        List($historyArray) { $result in
-                            NavigationLink(destination: maskInfo()){ // Modificare ProductCard in modo che contenga le informazioni della maschera. Tutto in modo dinamico
-                                HistoryCard(result: $result)
+                        // 🔹 LISTA DELLA STORIA
+                        if viewModel.historyResults.isEmpty {
+                            Text("Nessuna analisi ancora effettuata.")
+                                .font(.custom("SF pro", size: 18))
+                                .foregroundColor(.gray)
+                                .padding(.top, 50)
+                        } else {
+                            List($viewModel.historyResults) { $result in
+                                NavigationLink(destination: maskInfo()) { // 🔸 Modifica futura: passa info maschera
+                                    HistoryCard(result: $result)
+                                }
+                                .listRowBackground(Color.clear)
+                                .listRowSeparator(.hidden)
                             }
-                            .listRowBackground(Color.clear) // Rende lo sfondo della RIGA trasparente
-                            .listRowSeparator(.hidden) // Nasconde le linee separatore
+                            .scrollContentBackground(.hidden)
+                            .listStyle(.plain)
+                            .padding(.horizontal, 10)
                         }
-                        .scrollContentBackground(.hidden) // Rende lo sfondo della LISTA trasparente
-                        .listStyle(.plain) // Assicura lo stile più semplice
-                        .padding(.horizontal, 10)
                     }
                     .background(Color.white.opacity(0.81))
                 }
                 .cornerRadius(40)
-                .padding(.top, 10) // Aggiunge spazio tra l'header e la card
+                .padding(.top, 10)
                 .padding(.horizontal, 10)
             }
         }
@@ -67,26 +72,28 @@ struct History: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {
-                    dismiss() // Azione per tornare indietro
+                    dismiss()
                 }) {
-                    HStack(spacing: 4) { // Un Hstack per icona e testo
+                    HStack(spacing: 4) {
                         Image(systemName: "chevron.left")
-                            // Regola la dimensione e il peso come preferisci
                             .font(.system(size: 18, weight: .medium))
                         Text("Back")
-                            // Usa il tuo font personalizzato
                             .font(.custom("SerifMedium", size: 18))
                     }
-                    .foregroundColor(Color.themeText) // Usa il tuo colore personalizzato
+                    .foregroundColor(Color.themeText)
                 }
             }
         }
     }
 }
 
-
 #Preview {
-    History()
+    let vm = WelcomeViewModel()
+    vm.historyResults = [
+        AnalysisResult(date: Date(), healthStatus: "Healthy", maskName: "Yogurt & Flaxseed Shine Mask"),
+        AnalysisResult(date: Date(), healthStatus: "Damaged", maskName: "Banana & Honey Moisture Mask"),
+        AnalysisResult(date: Date(), healthStatus: "Very damaged", maskName: "Coconut & Aloe Rescue Mask")
+    ]
+    return History(viewModel: vm)
 }
 
-*/

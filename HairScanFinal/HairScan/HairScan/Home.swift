@@ -16,6 +16,7 @@ extension Color {
 
 // MARK: - Home View
 struct Home: View {
+    @StateObject private var viewModel = WelcomeViewModel()
     var body: some View {
         NavigationView {
             // Usa ZStack per posizionare lo sfondo sotto il contenuto
@@ -41,13 +42,13 @@ struct Home: View {
                     // ----------------------------------------------------
                     // 2. PRIMO BLOCCO (Welcome + Scan)
                     
-                    WelcomeView()
+                    WelcomeView(viewModel: viewModel)
                     
                     // ----------------------------
                     // INIZIO SECONDO BLOCCO (Last scan + History)
                     
                     
-                    LastScanView()
+                    LastScanView(viewModel: viewModel)
                     
                     
                     Spacer() // <-- QUESTO SPACER SPINGE TUTTO IL CONTENUTO SOPRA DI ESSO IN ALTO
