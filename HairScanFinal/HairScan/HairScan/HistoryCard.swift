@@ -17,7 +17,7 @@ struct AnalysisResult: Identifiable {
 
 struct HistoryCard: View {
     @Binding var result: AnalysisResult
-    
+    let onDelete: () -> Void
     var body: some View {
         HStack(spacing: 20) {
             RoundedRectangle(cornerRadius: 15)
@@ -42,7 +42,8 @@ struct HistoryCard: View {
             Spacer()
             
             Button(action: {
-                print("Elimina elemento: \(result.maskName)")
+                //print("Elimina elemento: \(result.maskName)")
+                onDelete() 
             }) {
                 Image(systemName: "trash.fill")
                     .font(.title2)
@@ -59,7 +60,13 @@ struct HistoryCard: View {
 }
 
 // Preview della singola Card
-#Preview {
-    //HistoryCard(result: .constant(AnalysisResult(healthStatus: "Healty", maskName: "Mask name")))
-      //  .padding()
+/*#Preview {
+    HistoryCard(result: .constant(
+        AnalysisResult(
+            date: Date(),
+            healthStatus: "Healthy",
+            maskName: "Yogurt & Flaxseed Shine Mask"
+        )
+    ))
 }
+*/

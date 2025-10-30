@@ -1,4 +1,3 @@
-//
 //  WelcomeViewModel.swift
 //  HairScan
 //
@@ -33,6 +32,7 @@ class WelcomeViewModel: ObservableObject {
         }
     }
     
+    // MARK: - Elaborazione immagine
     func processImage(_ image: UIImage) {
         print("ViewModel: Inizio elaborazione...")
         
@@ -49,13 +49,12 @@ class WelcomeViewModel: ObservableObject {
                             self.selectedMask = self.randomMask(for: scanResult)
                             
                             if let mask = self.selectedMask {
-                                // ✅ Creiamo un nuovo elemento History
                                 let newResult = AnalysisResult(
                                     date: Date(),
                                     healthStatus: scanResult,
                                     maskName: mask.maskName
                                 )
-                                self.historyResults.insert(newResult, at: 0) // lo mettiamo in cima
+                                self.historyResults.insert(newResult, at: 0)
                                 
                                 self.alertMessage = """
                                 Condizione: \(scanResult)
@@ -76,6 +75,41 @@ class WelcomeViewModel: ObservableObject {
         }
     }
     
+    // MARK: - Eliminazione elemento dalla history
+    func deleteHistoryItem(_ item: AnalysisResult) {
+        if let index = historyResults.firstIndex(where: { $0.id == item.id }) {
+            historyResults.remove(at: index)
+            
+            // 🔹 Aggiornamento LastScanView
+            if risultatoFinale == item.healthStatus {
+                if let last = historyResults.first {
+                    // Mostra la nuova ultima scansione
+                    risultatoFinale = last.healthStatus
+                    let allMasks = healthyHairMasks + damagedHairMask + veryDamagedHairMask
+                    selectedMask = allMasks.first { $0.maskName == last.maskName }
+                } else {
+                    // Nessuna scansione rimasta → reset
+                    risultatoFinale = ""
+                    selectedMask = nil
+                }
+            }
+        }
+    }
+    
+    // MARK: - Funzione di aggiunta nuovo risultato
+    func addHistoryItem(healthStatus: String, mask: MaskList) {
+        let newResult = AnalysisResult(
+            date: Date(),
+            healthStatus: healthStatus,
+            maskName: mask.maskName
+        )
+        historyResults.insert(newResult, at: 0)
+        risultatoFinale = healthStatus
+        selectedMask = mask
+        // If you need the date later, you can access `newResult.date`
+    }
+    
+    // MARK: - Funzioni interne ML simulate
     private func detectHair(image: UIImage, completion: @escaping (String) -> Void) {
         DispatchQueue.global().asyncAfter(deadline: .now() + 1.0) {
             completion(Bool.random() ? "Hair" : "NoHair")
@@ -102,3 +136,4 @@ class WelcomeViewModel: ObservableObject {
         }
     }
 }
+

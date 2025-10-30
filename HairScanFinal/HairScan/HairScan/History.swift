@@ -56,7 +56,9 @@ struct History: View {
                                         hairCondition: result.healthStatus,
                                         maskName: result.maskName
                                 )) { // 🔸 Modifica futura: passa info maschera
-                                    HistoryCard(result: $result)
+                                    HistoryCard(result: $result){
+                                        viewModel.deleteHistoryItem(result)
+                                    }
                                 }
                                 .listRowBackground(Color.clear)
                                 .listRowSeparator(.hidden)
