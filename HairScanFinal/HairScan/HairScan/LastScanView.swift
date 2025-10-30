@@ -20,13 +20,13 @@ struct LastScanView: View {
                             .foregroundColor(Color.themeText)
                         
                         Spacer()
-                        NavigationLink(destination: History()){
+                        /*NavigationLink(destination: History()){
                             Text("Show all")
                                 .fontWeight(.heavy)
                                 .font(.custom("SF pro", size: 16))
                                 .foregroundColor(Color.themeBrown)
                                 .underline()
-                        }
+                        }*/
                         
                     }
                     .padding(.horizontal, 40)

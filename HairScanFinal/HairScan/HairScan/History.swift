@@ -4,7 +4,7 @@
 //
 //  Created by Pasquale Pagano on 26/10/25.
 //
-
+/*
 import SwiftUI
 
 struct History: View {
@@ -46,7 +46,7 @@ struct History: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         
                         List($historyArray) { $result in
-                            NavigationLink(destination: ProductCard()){ // Modificare ProductCard in modo che contenga le informazioni della maschera. Tutto in modo dinamico
+                            NavigationLink(destination: maskInfo()){ // Modificare ProductCard in modo che contenga le informazioni della maschera. Tutto in modo dinamico
                                 HistoryCard(result: $result)
                             }
                             .listRowBackground(Color.clear) // Rende lo sfondo della RIGA trasparente
@@ -89,3 +89,4 @@ struct History: View {
     History()
 }
 
+*/

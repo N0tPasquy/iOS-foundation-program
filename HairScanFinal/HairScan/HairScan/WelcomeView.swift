@@ -6,31 +6,49 @@
 //
 
 import SwiftUI
+import UIKit // Richiesto per UIImage
 
 struct WelcomeView: View {
+    
+    // MARK: - State Variables
+    
+    /// 1. Aggiunto il ViewModel
+    // @StateObject assicura che il ViewModel viva
+    // per tutto il ciclo di vita della View.
+    @StateObject private var viewModel = WelcomeViewModel()
+    
+    /// 2. Aggiunte variabili di stato per gestire il flusso dell'Image Picker
+    @State private var showImagePickerOptions = false
+    @State private var showImagePicker = false
+    @State private var pickerSourceType: UIImagePickerController.SourceType = .camera
+    @State private var selectedImage: UIImage?
+    
     var body: some View {
         VStack{ // Contenitore per la card Welcome
             VStack(alignment: .center){
-                 
-                //VStack della scritta di benvenuto
+                
+                //VStack della scritta di benvenuto (identico a prima)
                 VStack(alignment: .leading, spacing: 5) {
                     Text("Welcome,")
                         .font(.custom("SerifMedium", size: 42))
                         .foregroundColor(Color.themeText)
-                     
+                    
                     Text("Take care of your hair health, take a scan")
                         .font(.custom("SerifMedium", size: 19))
                         .foregroundColor(.themeText)
                 }
-                // Padding orizzontale solo per i testi di benvenuto
                 .padding(.horizontal, 40)
                 .padding(.bottom, 30)
                 .padding(.top, 20)
-                .frame(maxWidth: .infinity, alignment: .leading) // Assicura che i testi siano allineati a sinistra all'interno della card
+                .frame(maxWidth: .infinity, alignment: .leading)
                 
                 // Bottone con effetto Neumorphism (bolla)
                 VStack{
-                    Button(action: {}){
+                    // 3. Azione del bottone modificata
+                    Button(action: {
+                        // Mostra il dialogo di scelta (Fotocamera / Galleria)
+                        self.showImagePickerOptions = true
+                    }){
                         Image(systemName:"camera.shutter.button.fill")
                             .font(.system(size: 60))
                             .foregroundColor(Color.themeText)
@@ -43,7 +61,7 @@ struct WelcomeView: View {
                         .shadow(color: Color.gray.opacity(0.2), radius: 8, x: -5, y: -5)
                         .shadow(color: Color.black.opacity(0.3), radius: 8, x: 5, y: 5)
                 )
-                 
+                
                 Text("Add photo from camera or gallery")
                     .font(.custom("SF pro", size: 14))
                     .foregroundColor(Color.themeText.opacity(0.90))
@@ -53,12 +71,52 @@ struct WelcomeView: View {
             .background(Color.white.opacity(0.81))
         }
         .cornerRadius(40)
-        .padding(.top, 10) // Aggiunge spazio tra l'header e la card
+        .padding(.top, 10)
         .padding(.horizontal, 10)
-
+        
+        // 4. Aggiunta la logica per mostrare le opzioni e l'Image Picker
+        
+        // Dialogo per scegliere la sorgente dell'immagine
+        .confirmationDialog("Scegli un'opzione", isPresented: $showImagePickerOptions, titleVisibility: .visible) {
+            Button("Fotocamera") {
+                self.pickerSourceType = .camera
+                self.showImagePicker = true
+            }
+            
+            Button("Galleria Foto") {
+                self.pickerSourceType = .photoLibrary
+                self.showImagePicker = true
+            }
+            
+            Button("Annulla", role: .cancel) { }
+        }
+        
+        // Foglio (sheet) che presenta l'ImagePicker
+        .sheet(isPresented: $showImagePicker) {
+            ImagePicker(image: $selectedImage, sourceType: pickerSourceType)
+        }
+        
+        // 5. Trigger che avvia l'analisi quando un'immagine viene selezionata
+        .onChange(of: selectedImage) { newImage in
+            if let image = newImage {
+                // Chiama la funzione di elaborazione sul ViewModel
+                viewModel.processImage(image)
+            }
+        }
+        
+        // 6. Alert per mostrare i risultati (guidato dal ViewModel)
+        .alert("Risultato Scansione", isPresented: $viewModel.showAlert) {
+            Button("OK", role: .cancel) {
+                // Resetta l'immagine dopo che l'utente ha visto l'alert
+                self.selectedImage = nil
+            }
+        } message: {
+            // Mostra il messaggio proveniente dal ViewModel
+            Text(viewModel.alertMessage)
+        }
+        
     }
 }
-
 #Preview {
     WelcomeView()
 }

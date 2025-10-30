@@ -10,11 +10,12 @@ import SwiftUI
 //Aggiunta struct
 struct AnalysisResult: Identifiable {
     let id = UUID()
+    let date: Date
     let healthStatus: String // Es: "Healty", "Damaged"
     let maskName: String     // Es: "Mask name"
 }
 
-struct HistoryCard: View { // NOME CORRETTO: HistoryCard
+struct HistoryCard: View {
     @Binding var result: AnalysisResult // Richiede un dato da mostrare
     
     var body: some View {
@@ -78,6 +79,6 @@ struct HistoryCard: View { // NOME CORRETTO: HistoryCard
 
 // Preview della singola Card
 #Preview {
-    HistoryCard(result: .constant(AnalysisResult(healthStatus: "Healty", maskName: "Mask name")))
-        .padding()
+    //HistoryCard(result: .constant(AnalysisResult(healthStatus: "Healty", maskName: "Mask name")))
+      //  .padding()
 }
