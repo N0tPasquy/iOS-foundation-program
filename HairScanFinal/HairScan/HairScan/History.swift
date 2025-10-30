@@ -53,7 +53,7 @@ struct History: View {
                            }
                             .scrollContentBackground(.hidden) // Rende lo sfondo della LISTA trasparente
                             .listStyle(.plain) // Assicura lo stile più semplice
-                            .padding(.horizontal, 20)
+                            .padding(.horizontal, 10)
                         }
                         .background(Color.white.opacity(0.81))
                     }
