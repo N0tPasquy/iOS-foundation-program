@@ -40,11 +40,11 @@ struct HistoryCard: View { // NOME CORRETTO: HistoryCard
                 
                 // Blocco TESTI
                 VStack(alignment: .leading, spacing: 5) {
-                    Text("- \(result.healthStatus)")
+                    Text("\(result.healthStatus)")
                         .font(.custom("SerifMedium", size: 22))
                         .foregroundColor(Color.themeText)
                     
-                    Text("-\(result.maskName)")
+                    Text("\(result.maskName)")
                         .font(.custom("SerifMedium", size: 18))
                         .foregroundColor(Color.themeText)
                 }
@@ -78,6 +78,6 @@ struct HistoryCard: View { // NOME CORRETTO: HistoryCard
 
 // Preview della singola Card
 #Preview {
-   // HistoryCard(result: AnalysisResult(healthStatus: "Healty", maskName: "Mask name"))
-     //   .padding()
+    HistoryCard(result: .constant(AnalysisResult(healthStatus: "Healty", maskName: "Mask name")))
+        .padding()
 }
