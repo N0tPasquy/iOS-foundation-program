@@ -8,7 +8,7 @@
 import SwiftUI
 
 //Aggiunta struct
-struct AnalysisResult: Identifiable {
+struct AnalysisResult: Identifiable, Codable {
     let id = UUID()
     let date: Date
     let healthStatus: String // Es: "Healty", "Damaged"
@@ -43,7 +43,7 @@ struct HistoryCard: View {
             
             Button(action: {
                 //print("Elimina elemento: \(result.maskName)")
-                onDelete() 
+                onDelete()
             }) {
                 Image(systemName: "trash.fill")
                     .font(.title2)

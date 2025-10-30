@@ -16,6 +16,7 @@ class WelcomeViewModel: ObservableObject {
     @Published var risultatoFinale: String = ""
     @Published var selectedMask: MaskList?
     @Published var historyResults: [AnalysisResult] = [] // 👈 STORICO SCANSIONI
+    private var historyKey: String { "HistoryResultsKey" }
     
     private let hairDetectionModel: VNCoreMLModel
     private let hairScanModel: VNCoreMLModel
@@ -30,6 +31,7 @@ class WelcomeViewModel: ObservableObject {
         } catch {
             fatalError("Errore critico: impossibile caricare i modelli Core ML: \(error)")
         }
+        loadHistory()
     }
     
     // MARK: - Elaborazione immagine
@@ -54,12 +56,18 @@ class WelcomeViewModel: ObservableObject {
                                     healthStatus: scanResult,
                                     maskName: mask.maskName
                                 )
+                                
+                                // Inseriamo in cima alla history
                                 self.historyResults.insert(newResult, at: 0)
+                                
+                                // 🔹 Salviamo subito su UserDefaults
+                                self.saveHistory()
                                 
                                 self.alertMessage = """
                                 Condizione: \(scanResult)
                                 Maschera consigliata: \(mask.maskName)
                                 """
+                                
                             } else {
                                 self.alertMessage = "Nessuna maschera trovata per \(scanResult)"
                             }
@@ -74,6 +82,7 @@ class WelcomeViewModel: ObservableObject {
             }
         }
     }
+
     
     // MARK: - Eliminazione elemento dalla history
     func deleteHistoryItem(_ item: AnalysisResult) {
@@ -94,6 +103,7 @@ class WelcomeViewModel: ObservableObject {
                 }
             }
         }
+        saveHistory()
     }
     
     // MARK: - Funzione di aggiunta nuovo risultato
@@ -135,5 +145,24 @@ class WelcomeViewModel: ObservableObject {
             return nil
         }
     }
+    
+    func saveHistory() {
+        if let encoded = try? JSONEncoder().encode(historyResults) {
+            UserDefaults.standard.set(encoded, forKey: historyKey)
+        }
+    }
+    
+    func loadHistory() {
+        if let data = UserDefaults.standard.data(forKey: historyKey),
+           let decoded = try? JSONDecoder().decode([AnalysisResult].self, from: data) {
+            self.historyResults = decoded
+            // Aggiorna la last scan se c'è almeno un elemento
+            if let last = decoded.first {
+                self.risultatoFinale = last.healthStatus
+                self.selectedMask = randomMask(for: last.healthStatus)
+            }
+        }
+    }
+    
 }
 
