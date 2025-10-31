@@ -1,3 +1,4 @@
+//
 //  WelcomeViewModel.swift
 //  HairScan
 //
@@ -15,7 +16,7 @@ class WelcomeViewModel: ObservableObject {
     @Published var showAlert = false
     @Published var risultatoFinale: String = ""
     @Published var selectedMask: MaskList?
-    @Published var historyResults: [AnalysisResult] = [] // 👈 STORICO SCANSIONI
+    @Published var historyResults: [AnalysisResult] = [] // STORICO SCANSIONI
     private var historyKey: String { "HistoryResultsKey" }
     
     private let hairDetectionModel: VNCoreMLModel
@@ -60,7 +61,7 @@ class WelcomeViewModel: ObservableObject {
                                 // Inseriamo in cima alla history
                                 self.historyResults.insert(newResult, at: 0)
                                 
-                                // 🔹 Salviamo subito su UserDefaults
+                                // Salviamo subito su UserDefaults
                                 self.saveHistory()
                                 
                                 self.alertMessage = """
@@ -89,7 +90,7 @@ class WelcomeViewModel: ObservableObject {
         if let index = historyResults.firstIndex(where: { $0.id == item.id }) {
             historyResults.remove(at: index)
             
-            // 🔹 Aggiornamento LastScanView
+            //  Aggiornamento LastScanView
             if risultatoFinale == item.healthStatus {
                 if let last = historyResults.first {
                     // Mostra la nuova ultima scansione

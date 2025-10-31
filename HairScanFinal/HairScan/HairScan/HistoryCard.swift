@@ -18,8 +18,17 @@ struct AnalysisResult: Identifiable, Codable {
 struct HistoryCard: View {
     @Binding var result: AnalysisResult
     let onDelete: () -> Void
+    
+    // Funzione per formattare la data
+    private func formatted(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        return formatter.string(from: date)
+    }
+    
     var body: some View {
-        HStack(spacing: 20) {
+        HStack(spacing: 10) {
             RoundedRectangle(cornerRadius: 15)
                 .fill(Color.white.opacity(0.8))
                 .frame(width: 80, height: 80)
@@ -31,42 +40,46 @@ struct HistoryCard: View {
             
             VStack(alignment: .leading, spacing: 5) {
                 Text(result.healthStatus)
-                    .font(.custom("SerifMedium", size: 22))
+                    .font(.custom("SerifMedium", size: 20))
                     .foregroundColor(Color.themeText)
                 
                 Text(result.maskName)
-                    .font(.custom("SerifMedium", size: 18))
+                    .font(.custom("SerifMedium", size: 16))
                     .foregroundColor(Color.themeText)
+                
+                Text(formatted(date: result.date))
+                    .font(.custom("SerifMedium", size: 14))
+                    .foregroundColor(Color.themeText.opacity(0.81))
             }
             
             Spacer()
-            
             Button(action: {
-                //print("Elimina elemento: \(result.maskName)")
                 onDelete()
             }) {
                 Image(systemName: "trash.fill")
-                    .font(.title2)
+                    .font(.title3)
                     .foregroundColor(.themeBrown)
             }
             .buttonStyle(.plain)
         }
         .padding(15)
         .background(
-            RoundedRectangle(cornerRadius: 20)
+            RoundedRectangle(cornerRadius: 15)
                 .fill(Color.lightBackground)
         )
     }
 }
 
 // Preview della singola Card
-/*#Preview {
-    HistoryCard(result: .constant(
-        AnalysisResult(
-            date: Date(),
-            healthStatus: "Healthy",
-            maskName: "Yogurt & Flaxseed Shine Mask"
-        )
-    ))
+#Preview {
+    HistoryCard(
+        result: .constant(
+            AnalysisResult(
+                date: Date(),
+                healthStatus: "Healthy",
+                maskName: "Yogurt & Flaxseed Shine Mask"
+            )
+        ),
+        onDelete: { }
+    )
 }
-*/

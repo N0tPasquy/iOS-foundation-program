@@ -1,3 +1,9 @@
+//
+//  MaskInfo.swift
+//  HairScan
+//
+//  Created by Pasquale Pagano on 30/10/25.
+//
 import SwiftUI
 
 struct MaskInfo: View {

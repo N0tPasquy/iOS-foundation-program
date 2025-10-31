@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct History: View {
-    @ObservedObject var viewModel: WelcomeViewModel   // 👈 collegamento con il ViewModel condiviso
+    @ObservedObject var viewModel: WelcomeViewModel   // collegamento con il ViewModel condiviso
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
@@ -55,7 +55,7 @@ struct History: View {
                                 NavigationLink(destination: MaskInfo(
                                         hairCondition: result.healthStatus,
                                         maskName: result.maskName
-                                )) { // 🔸 Modifica futura: passa info maschera
+                                )) { 
                                     HistoryCard(result: $result){
                                         viewModel.deleteHistoryItem(result)
                                     }
