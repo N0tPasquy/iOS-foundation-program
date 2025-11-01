@@ -2,12 +2,12 @@
 //  Home.swift
 //  HairScan
 //
-//  Created by Daniele Mele & Pasquale Pagano on 22/10/25.
+//  Created by Pasquale Pagano & Daniele Mele on 22/10/25.
 //
 
 import SwiftUI
 
-// MARK: - Colori e font personalizzati
+// MARK: - Colori personalizzati
 extension Color {
     static let themeBrown = Color(red: 133/255.0, green: 74/255.0, blue: 20/255.0)
     static let themeText = Color(red: 179/255.0, green: 141/255.0, blue: 105/255.0)
@@ -49,9 +49,6 @@ struct Home: View {
                     
                     
                     LastScanView(viewModel: viewModel)
-                    
-                    
-                    Spacer() // <-- QUESTO SPACER SPINGE TUTTO IL CONTENUTO SOPRA DI ESSO IN ALTO
                 }
             }
         }

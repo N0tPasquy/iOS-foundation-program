@@ -2,9 +2,9 @@
 //  LastScanView.swift
 //  HairScan
 //
-//  Created by Pasquale Pagano on 29/10/25.
+//  Created by Pasquale Pagano & Daniele Mele on 29/10/25.
 //
-
+// MARK: - File che implementa la parte inferiore della homepage
 
 import SwiftUI
 
@@ -41,7 +41,7 @@ struct LastScanView: View {
                 .padding(.horizontal, 40)
                 .padding(.top, 30)
                 
-                // 🔹 Risultato della scansione
+                // Risultato della scansione
                 VStack {
                     Text(viewModel.risultatoFinale.isEmpty ? "Nessuna scansione effettuata" : viewModel.risultatoFinale.uppercased())
                         .font(.custom("SF pro", size: 20))

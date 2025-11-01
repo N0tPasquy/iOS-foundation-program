@@ -2,8 +2,9 @@
 //  ImagePicker.swift
 //  HairScan
 //
-//  Created by Pasquale Pagano on 30/10/25.
+//  Created by Pasquale Pagano & Daniele Mele on 30/10/25.
 //
+// MARK: - Funzioni che permettono di scegliore la foto dalla galleria o scattarne una al momento
 
 import SwiftUI
 import UIKit

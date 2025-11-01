@@ -2,8 +2,9 @@
 //  History.swift
 //  HairScan
 //
-//  Created by Pasquale Pagano on 26/10/25.
+//  Created by Daniele Mele & Pasquale Pagano on 26/10/25.
 //
+// MARK: - File che implementa e visualizza la sezione History
 
 import SwiftUI
 
@@ -42,10 +43,10 @@ struct History: View {
                         .padding(.top, 20)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        // 🔹 LISTA DELLA STORIA
+                        // LISTA DELLA STORIA
                         if viewModel.historyResults.isEmpty {
                             Spacer()
-                            Text("Nessuna analisi ancora effettuata.")
+                            Text("No analysis has been taken")
                                 .font(.custom("SF pro", size: 18))
                                 .foregroundColor(.gray)
                                 .padding(.top, 50)

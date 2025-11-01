@@ -2,15 +2,14 @@
 //  WelcomeView.swift
 //  HairScan
 //
-//  Created by Pasquale Pagano on 29/10/25.
+//  Created by Pasquale Pagano & Daniele Mele on 29/10/25.
 //
+// MARK: - File che implementa la parte superiore della homepage
 
 import SwiftUI
 import UIKit // Richiesto per UIImage
 
 struct WelcomeView: View {
-    
-    // MARK: - State Variables
     
     /// 1. Aggiunto il ViewModel
     // @StateObject assicura che il ViewModel viva
@@ -77,18 +76,18 @@ struct WelcomeView: View {
         // 4. Aggiunta la logica per mostrare le opzioni e l'Image Picker
         
         // Dialogo per scegliere la sorgente dell'immagine
-        .confirmationDialog("Scegli un'opzione", isPresented: $showImagePickerOptions, titleVisibility: .visible) {
-            Button("Fotocamera") {
+        .confirmationDialog("Choose an option", isPresented: $showImagePickerOptions, titleVisibility: .visible) {
+            Button("Camera") {
                 self.pickerSourceType = .camera
                 self.showImagePicker = true
             }
             
-            Button("Galleria Foto") {
+            Button("Gallery") {
                 self.pickerSourceType = .photoLibrary
                 self.showImagePicker = true
             }
             
-            Button("Annulla", role: .cancel) { }
+            Button("Cancel", role: .cancel) { }
         }
         
         // Foglio (sheet) che presenta l'ImagePicker
@@ -105,7 +104,7 @@ struct WelcomeView: View {
         }
         
         // 6. Alert per mostrare i risultati (guidato dal ViewModel)
-        .alert("Risultato Scansione", isPresented: $viewModel.showAlert) {
+        .alert("Scan result", isPresented: $viewModel.showAlert) {
             Button("OK", role: .cancel) {
                 // Resetta l'immagine dopo che l'utente ha visto l'alert
                 self.selectedImage = nil

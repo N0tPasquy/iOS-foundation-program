@@ -2,8 +2,9 @@
 //  WelcomeViewModel.swift
 //  HairScan
 //
-//  Created by Pasquale Pagano on 30/10/25.
+//  Created by Pasquale Pagano & Daniele Mele on 30/10/25.
 //
+// MARK: - File che contiene la logica più importante dell'app
 
 import SwiftUI
 import CoreML
@@ -30,14 +31,14 @@ class WelcomeViewModel: ObservableObject {
             let scanConfig = MLModelConfiguration()
             hairScanModel = try VNCoreMLModel(for: HairScan(configuration: scanConfig).model)
         } catch {
-            fatalError("Errore critico: impossibile caricare i modelli Core ML: \(error)")
+            fatalError("Critical error: Failed to load Core ML models: \(error)")
         }
         loadHistory()
     }
     
     // MARK: - Elaborazione immagine
     func processImage(_ image: UIImage) {
-        print("ViewModel: Inizio elaborazione...")
+        print("ViewModel: Processing begins...")
         
         detectHair(image: image) { [weak self] result in
             guard let self = self else { return }
@@ -46,7 +47,7 @@ class WelcomeViewModel: ObservableObject {
                 if result == "Hair" {
                     self.scanHair(image: image) { scanResult in
                         DispatchQueue.main.async {
-                            print("ViewModel: Scansione completata: \(scanResult)")
+                            print("ViewModel: Scan completed: \(scanResult)")
                             
                             self.risultatoFinale = scanResult
                             self.selectedMask = self.randomMask(for: scanResult)
@@ -65,19 +66,19 @@ class WelcomeViewModel: ObservableObject {
                                 self.saveHistory()
                                 
                                 self.alertMessage = """
-                                Condizione: \(scanResult)
-                                Maschera consigliata: \(mask.maskName)
+                                Condition: \(scanResult)
+                                Recommended mask: \(mask.maskName)
                                 """
                                 
                             } else {
-                                self.alertMessage = "Nessuna maschera trovata per \(scanResult)"
+                                self.alertMessage = "No mask found for \(scanResult)"
                             }
                             
                             self.showAlert = true
                         }
                     }
                 } else {
-                    self.alertMessage = "Capelli non rilevati. Riprova con un’altra foto."
+                    self.alertMessage = "Hair not detected. Try again with another photo."
                     self.showAlert = true
                 }
             }
@@ -134,6 +135,7 @@ class WelcomeViewModel: ObservableObject {
         }
     }
     
+    // MARK: - Selezione randomica della mask rispetto allo stato dei capelli
     private func randomMask(for condition: String) -> MaskList? {
         switch condition {
         case "Healthy":
@@ -147,6 +149,7 @@ class WelcomeViewModel: ObservableObject {
         }
     }
     
+    // MARK: - Funzioni per salvare e visualizzare le scansioni fatte in precedenza
     func saveHistory() {
         if let encoded = try? JSONEncoder().encode(historyResults) {
             UserDefaults.standard.set(encoded, forKey: historyKey)

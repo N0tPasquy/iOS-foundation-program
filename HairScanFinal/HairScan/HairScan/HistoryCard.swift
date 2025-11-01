@@ -2,14 +2,16 @@
 //  HistoryCard.swift
 //  HairScan
 //
-//  Created by Daniele Mele on 29/10/25.
+//  Created by Pasquale Pagano & Daniele Mele on 29/10/25.
 //
+// MARK: - File che implementa una singola "card" della Hisotry
+// viene richiamato tante volte quante scansioni sono state eseguite
 
 import SwiftUI
 
 //Aggiunta struct
 struct AnalysisResult: Identifiable, Codable {
-    let id = UUID()
+    var id = UUID()
     let date: Date
     let healthStatus: String // Es: "Healty", "Damaged"
     let maskName: String     // Es: "Mask name"

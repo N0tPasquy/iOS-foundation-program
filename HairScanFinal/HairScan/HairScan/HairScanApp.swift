@@ -2,7 +2,7 @@
 //  HairScanApp.swift
 //  HairScan
 //
-//  Created by Daniele Mele on 22/10/25.
+//  Created by Daniele Mele & Pasquale Pagano on 22/10/25.
 //
 
 import SwiftUI

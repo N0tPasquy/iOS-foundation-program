@@ -2,8 +2,10 @@
 //  MaskInfo.swift
 //  HairScan
 //
-//  Created by Pasquale Pagano on 30/10/25.
+//  Created by Pasquale Pagano & Daniele Mele on 30/10/25.
 //
+// MARK: - File che visualizza le infromazioni in modo dinamico di ogni maschera
+
 import SwiftUI
 
 struct MaskInfo: View {
@@ -40,25 +42,30 @@ struct MaskInfo: View {
                 // CONTENUTO PRINCIPALE
                 ScrollView {
                     if let mask = selectedMask {
-                        VStack(alignment: .leading, spacing: 20) {
+                        VStack(alignment: .leading, spacing: 18) {
                             Text(mask.maskName)
                                 .font(.custom("SerifMedium", size: 32))
                                 .bold()
                                 .foregroundColor(Color.themeText)
-                                .padding(.bottom, 10)
+                                .padding(.bottom, 15)
                             
                             Group {
                                 MaskInfoRow(title: "Hair Condition", value: mask.hairCondition)
+                                Divider().opacity(0.5)
                                 MaskInfoRow(title: "Ingredients", value: mask.ingredients)
+                                Divider().opacity(0.5)
                                 MaskInfoRow(title: "Benefit", value: mask.benefit)
+                                Divider().opacity(0.5)
                                 MaskInfoRow(title: "Application Time", value: mask.applicationTime)
+                                Divider().opacity(0.5)
                                 MaskInfoRow(title: "Frequency", value: mask.frequency)
+                                Divider().opacity(0.5)
                                 MaskInfoRow(title: "Usage Note", value: mask.usageNote)
                             }
                         }
                         .padding(.horizontal, 30)
                         .padding(.vertical, 25)
-                        .background(Color.white.opacity(0.81))
+                        .background(Color.white)
                         .cornerRadius(40)
                         .padding(.top, 10)
                         .padding(.horizontal, 10)
@@ -102,7 +109,7 @@ struct MaskInfoRow: View {
                 .bold()
             Text(value)
                 .font(.custom("SerifMedium", size: 16))
-                .foregroundColor(Color.themeText)
+                .foregroundColor(Color.themeText.opacity(0.75))
         }
     }
 }
