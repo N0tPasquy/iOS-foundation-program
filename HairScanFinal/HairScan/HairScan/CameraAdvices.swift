@@ -14,7 +14,7 @@ struct CameraAdvices: View {
         VStack(alignment: .leading, spacing: 18) {
             HStack(){
                 Text("HOW TO TAKE THE BEST SCAN")
-                    .font(.custom("SerifMedium", size: 24))
+                    .font(.custom("SerifMedium", size: 20))
                     .bold()
                     .foregroundColor(Color.themeText)
                     .padding(.bottom, 15)
@@ -35,7 +35,7 @@ struct CameraAdvices: View {
                 HStack(spacing: 4) {
                     Image(systemName:"sparkle.magnifyingglass")
                     Text("Capture the full hairstyle")
-                        .font(.custom("SF pro", size: 18))
+                        .font(.custom("SF pro", size: 16))
                 }
                 .foregroundColor(Color.themeBrown)
                 Divider().opacity(0.5)
@@ -69,6 +69,6 @@ struct CameraAdvices: View {
     }
 }
 
-/*#Preview {
+#Preview {
     CameraAdvices()
-}*/
+}

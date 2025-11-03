@@ -21,7 +21,8 @@ struct WelcomeView: View {
     @State private var showImagePicker = false
     @State private var pickerSourceType: UIImagePickerController.SourceType = .camera
     @State private var selectedImage: UIImage?
-    @State private var showAdvices = false
+    //@State private var showAdvices = false
+    var onShowAdvices: (() -> Void)? = nil
     
     var body: some View {
         ZStack{
@@ -45,9 +46,7 @@ struct WelcomeView: View {
                     
                     // Pulsante Info
                     Button(action:{
-                        withAnimation(.spring()){
-                            showAdvices = true
-                        }
+                            onShowAdvices?()
                     }){
                         Image(systemName:"info.circle.fill")
                             .font(.system(size: 26, weight: .medium))
@@ -133,21 +132,7 @@ struct WelcomeView: View {
                 // Mostra il messaggio proveniente dal ViewModel
                 Text(viewModel.alertMessage)
             }
-            
-            if showAdvices {
-                Color.black.opacity(0.3)
-                    .ignoresSafeArea()
-                    .onTapGesture{
-                        withAnimation{
-                            showAdvices = false
-                        }
-                    }
-                CameraAdvices{
-                    withAnimation{ showAdvices = false }
-                }
-                .transition(.scale.combined(with: .opacity))
-                .zIndex(1)
-            }
+
         }
     }
 }

@@ -17,6 +17,7 @@ extension Color {
 // MARK: - Home View
 struct Home: View {
     @StateObject private var viewModel = WelcomeViewModel()
+    @State private var showAdvices = false
     var body: some View {
         NavigationView {
             // Usa ZStack per posizionare lo sfondo sotto il contenuto
@@ -42,13 +43,37 @@ struct Home: View {
                     // ----------------------------------------------------
                     // 2. PRIMO BLOCCO (Welcome + Scan)
                     
-                    WelcomeView(viewModel: viewModel)
+                    WelcomeView(viewModel: viewModel){
+                        withAnimation{ showAdvices = true }
+                    }
                     
                     // ----------------------------
                     // INIZIO SECONDO BLOCCO (Last scan + History)
                     
                     
                     LastScanView(viewModel: viewModel)
+                    
+                    
+                }
+                if showAdvices {
+                    Color.black.opacity(0.3)
+                        .ignoresSafeArea()
+                        .onTapGesture{
+                            withAnimation{
+                                showAdvices = false
+                            }
+                        }
+                    CameraAdvices{
+                        withAnimation{ showAdvices = false }
+                    }
+                    .frame(maxWidth: 350)
+                    .background(Color.lightBackground)
+                    .cornerRadius(40)
+                    .shadow(radius: 10)
+                    .transition(.scale.combined(with: .opacity))
+                    .zIndex(1)
+                    .position(x: UIScreen.main.bounds.width / 2,
+                              y: UIScreen.main.bounds.height / 2)
                 }
             }
         }
