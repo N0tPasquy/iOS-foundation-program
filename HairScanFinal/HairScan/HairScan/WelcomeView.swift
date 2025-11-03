@@ -136,6 +136,7 @@ struct WelcomeView: View {
         }
     }
 }
+
 #Preview {
     let vm = WelcomeViewModel()
     vm.risultatoFinale = "Healthy"
