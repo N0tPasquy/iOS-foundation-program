@@ -43,7 +43,7 @@ struct LastScanView: View {
                 
                 // Risultato della scansione
                 VStack {
-                    Text(viewModel.risultatoFinale.isEmpty ? "Nessuna scansione effettuata" : viewModel.risultatoFinale.uppercased())
+                    Text(viewModel.risultatoFinale.isEmpty ? "No scan performed" : viewModel.risultatoFinale.uppercased())
                         .font(.custom("SF pro", size: 20))
                         .foregroundColor(Color.themeBrown)
                         .bold()
@@ -74,7 +74,7 @@ struct LastScanView: View {
                     .padding(.top, 10)
                 } else {
                     VStack {
-                        Text("Nessun suggerimento disponibile")
+                        Text("No suggestions available")
                             .font(.custom("SF pro", size: 18))
                             .foregroundColor(Color.themeBrown)
                             .bold()
@@ -98,7 +98,7 @@ struct LastScanView: View {
                 } else {
                     HStack {
                         Spacer() // Spinge la data sul lato destro
-                        Text("Nessuna data disponibile")
+                        Text("No date available")
                             .font(.custom("SerifMedium", size: 14))
                             .foregroundColor(Color.themeText)
                     }

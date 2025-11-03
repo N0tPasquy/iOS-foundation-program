@@ -43,6 +43,19 @@ struct WelcomeView: View {
                     .padding(.top, 20)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     
+                    // Pulsante Info
+                    Button(action:{
+                        withAnimation(.spring()){
+                            showAdvices = true
+                        }
+                    }){
+                        Image(systemName:"info.circle.fill")
+                            .font(.system(size: 26, weight: .medium))
+                            .foregroundColor(Color.themeText)
+                    }
+                    .padding(.leading, 150)
+                    .padding(.top, -10)
+                    
                     // Bottone con effetto Neumorphism (bolla)
                     HStack{
                         // Pulsante camera
@@ -65,17 +78,7 @@ struct WelcomeView: View {
                                 .shadow(color: Color.gray.opacity(0.2), radius: 8, x: -5, y: -5)
                                 .shadow(color: Color.black.opacity(0.3), radius: 8, x: 5, y: 5)
                         )
-                        
-                        // Pulsante Info
-                        Button(action:{
-                            withAnimation(.spring()){
-                                showAdvices = true
-                            }
-                        }){
-                            Image(systemName:"info.circle.fill")
-                                .font(.system(size: 22, weight: .medium))
-                        }
-                        .padding(.top, 10)
+                        .padding(.top, -10)
                     }
                     
                     Text("Add photo from camera or gallery")
