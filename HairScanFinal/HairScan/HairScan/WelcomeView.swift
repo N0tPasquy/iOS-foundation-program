@@ -134,10 +134,19 @@ struct WelcomeView: View {
                 Text(viewModel.alertMessage)
             }
             
-            .sheet(isPresented: $showAdvices){
-                CameraAdvices()
-                    .presentationDetents([.medium,.large])
-                    .presentationDragIndicator(.visible)
+            if showAdvices {
+                Color.black.opacity(0.3)
+                    .ignoresSafeArea()
+                    .onTapGesture{
+                        withAnimation{
+                            showAdvices = false
+                        }
+                    }
+                CameraAdvices{
+                    withAnimation{ showAdvices = false }
+                }
+                .transition(.scale.combined(with: .opacity))
+                .zIndex(1)
             }
         }
     }

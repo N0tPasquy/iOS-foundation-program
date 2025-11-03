@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct CameraAdvices: View {
-    @Environment(\.dismiss) private var dismiss
-    
+    //@Environment(\.dismiss) private var dismiss
+    var onClose: (() -> Void)? = nil
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
             HStack(){
@@ -21,7 +21,7 @@ struct CameraAdvices: View {
                 
                 Spacer()
                 
-                Button(action:{ dismiss()}){
+                Button(action:{ onClose?()}){
                     Image(systemName:"xmark.circle.fill")
                         .font(.system(size: 22, weight: .medium))
                 }
