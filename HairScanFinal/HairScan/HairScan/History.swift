@@ -94,14 +94,14 @@ struct History: View {
         }
     }
 }
-
-#Preview {
-    let vm = WelcomeViewModel()
-    vm.historyResults = [
-        AnalysisResult(date: Date(), healthStatus: "Healthy", maskName: "Yogurt & Flaxseed Shine Mask"),
-        AnalysisResult(date: Date(), healthStatus: "Damaged", maskName: "Banana & Honey Moisture Mask"),
-        AnalysisResult(date: Date(), healthStatus: "Very damaged", maskName: "Coconut & Aloe Rescue Mask")
-    ]
-    return History(viewModel: vm)
-}
-
+/*
+ #Preview {
+ let vm = WelcomeViewModel()
+ vm.historyResults = [
+ AnalysisResult(date: Date(), healthStatus: "Healthy", maskName: "Yogurt & Flaxseed Shine Mask", imageData: nil),
+ AnalysisResult(date: Date(), healthStatus: "Damaged", maskName: "Banana & Honey Moisture Mask", imageData: nil),
+ AnalysisResult(date: Date(), healthStatus: "Very damaged", maskName: "Coconut & Aloe Rescue Mask", imageData: nil)
+ ]
+ History(viewModel: vm)
+ }
+ */

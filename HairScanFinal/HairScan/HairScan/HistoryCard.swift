@@ -13,8 +13,16 @@ import SwiftUI
 struct AnalysisResult: Identifiable, Codable {
     var id = UUID()
     let date: Date
-    let healthStatus: String // Es: "Healty", "Damaged"
+    let healthStatus: String // Es: "Healthy", "Damaged"
     let maskName: String     // Es: "Mask name"
+    let imageData : Data?
+    
+    //convenienza per ottenere immagine SwiftUI
+    
+    var uiImage : UIImage? {
+        guard let data = imageData else { return nil }
+        return UIImage(data: data)
+    }
 }
 
 struct HistoryCard: View {
@@ -31,14 +39,23 @@ struct HistoryCard: View {
     
     var body: some View {
         HStack(spacing: 10) {
-            RoundedRectangle(cornerRadius: 15)
-                .fill(Color.white.opacity(0.8))
-                .frame(width: 80, height: 80)
-                .overlay(
-                    Text("Photo")
-                        .font(.custom("SerifMedium", size: 18))
-                        .foregroundColor(Color.themeText)
-                )
+            if let image = result.uiImage{
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 80, height: 80)
+                    .clipShape(RoundedRectangle(cornerRadius: 15))
+                    .shadow(radius: 2)
+            }else{
+                RoundedRectangle(cornerRadius: 15)
+                    .fill(Color.white.opacity(0.8))
+                    .frame(width: 80, height: 80)
+                    .overlay(
+                        Text("Photo")// <- qua va la foto
+                            .font(.custom("SerifMedium", size: 18))
+                            .foregroundColor(Color.themeText)
+                    )
+            }
             
             VStack(alignment: .leading, spacing: 5) {
                 Text(result.healthStatus)
@@ -73,15 +90,17 @@ struct HistoryCard: View {
 }
 
 // Preview della singola Card
-#Preview {
-    HistoryCard(
-        result: .constant(
-            AnalysisResult(
-                date: Date(),
-                healthStatus: "Healthy",
-                maskName: "Yogurt & Flaxseed Shine Mask"
-            )
-        ),
-        onDelete: { }
-    )
-}
+/*
+ #Preview {
+ HistoryCard(
+ result: .constant(
+ AnalysisResult(
+ date: Date(),
+ healthStatus: "Healthy",
+ maskName: "Yogurt & Flaxseed Shine Mask"
+ )
+ ),
+ onDelete: { }
+ )
+ }
+ */

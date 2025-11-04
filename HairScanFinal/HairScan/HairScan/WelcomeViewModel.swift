@@ -59,10 +59,12 @@ class WelcomeViewModel: ObservableObject {
                             self.selectedMask = self.randomMask(for: scanResult)
                              
                             if let mask = self.selectedMask {
+                                let imageData = image.jpegData(compressionQuality: 0.8) // conversione immagine
                                 let newResult = AnalysisResult(
                                     date: Date(),
                                     healthStatus: scanResult,
-                                    maskName: mask.maskName
+                                    maskName: mask.maskName,
+                                    imageData : imageData
                                 )
                                  
                                 // Inseriamo in cima alla history
@@ -120,12 +122,12 @@ class WelcomeViewModel: ObservableObject {
         let newResult = AnalysisResult(
             date: Date(),
             healthStatus: healthStatus,
-            maskName: mask.maskName
+            maskName: mask.maskName,
+            imageData: nil
         )
         historyResults.insert(newResult, at: 0)
         risultatoFinale = healthStatus
         selectedMask = mask
-        // If you need the date later, you can access `newResult.date`
     }
      
     // MARK: - Funzione di RILEVAMENTO REALE (Hair/NoHair)
