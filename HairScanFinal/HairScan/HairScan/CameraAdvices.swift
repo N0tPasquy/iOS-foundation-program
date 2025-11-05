@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CameraAdvices: View {
-    //@Environment(\.dismiss) private var dismiss
+    
     var onClose: (() -> Void)? = nil
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {

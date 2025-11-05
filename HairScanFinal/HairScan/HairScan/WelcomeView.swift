@@ -10,18 +10,11 @@ import SwiftUI
 import UIKit // Richiesto per UIImage
 
 struct WelcomeView: View {
-    
-    /// 1. Aggiunto il ViewModel
-    // @StateObject assicura che il ViewModel viva
-    // per tutto il ciclo di vita della View.
-    //@StateObject private var viewModel = WelcomeViewModel()
     @ObservedObject var viewModel: WelcomeViewModel
-    /// 2. Aggiunte variabili di stato per gestire il flusso dell'Image Picker
     @State private var showImagePickerOptions = false
     @State private var showImagePicker = false
     @State private var pickerSourceType: UIImagePickerController.SourceType = .camera
     @State private var selectedImage: UIImage?
-    //@State private var showAdvices = false
     var onShowAdvices: (() -> Void)? = nil
     
     var body: some View {
@@ -92,7 +85,6 @@ struct WelcomeView: View {
             .padding(.top, 10)
             .padding(.horizontal, 10)
             
-            // 4. Aggiunta la logica per mostrare le opzioni e l'Image Picker
             
             // Dialogo per scegliere la sorgente dell'immagine
             .confirmationDialog("Choose an option", isPresented: $showImagePickerOptions, titleVisibility: .visible) {
@@ -114,7 +106,7 @@ struct WelcomeView: View {
                 ImagePicker(image: $selectedImage, sourceType: pickerSourceType)
             }
             
-            // 5. Trigger che avvia l'analisi quando un'immagine viene selezionata
+            // Trigger che avvia l'analisi quando un'immagine viene selezionata
             .onChange(of: selectedImage) { newImage in
                 if let image = newImage {
                     // Chiama la funzione di elaborazione sul ViewModel
@@ -122,7 +114,7 @@ struct WelcomeView: View {
                 }
             }
             
-            // 6. Alert per mostrare i risultati (guidato dal ViewModel)
+            //Alert per mostrare i risultati (guidato dal ViewModel)
             .alert("Scan result", isPresented: $viewModel.showAlert) {
                 Button("OK", role: .cancel) {
                     // Resetta l'immagine dopo che l'utente ha visto l'alert

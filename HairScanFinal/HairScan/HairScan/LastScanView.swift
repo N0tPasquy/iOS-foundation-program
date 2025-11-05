@@ -12,7 +12,6 @@ struct LastScanView: View {
     @ObservedObject var viewModel: WelcomeViewModel   // collegamento con il ViewModel
     
     private func formatted(date: Date) -> String {
-        // You can adjust style/locale as needed
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .short

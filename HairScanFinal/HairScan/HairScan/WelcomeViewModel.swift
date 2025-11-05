@@ -140,30 +140,29 @@ class WelcomeViewModel: ObservableObject {
             return
         }
          
-        // 2. Crea la richiesta per il modello HairDetection
+        //Crea la richiesta per il modello HairDetection
         let request = VNCoreMLRequest(model: hairDetectionModel) { (request, error) in
              
-            // 3. Gestisci il risultato (o l'errore)
+            //Gestisci il risultato (o l'errore)
             if let error = error {
                 print("Error: Vision request failed (detectHair): \(error.localizedDescription)")
                 completion("Detection Error")
                 return
             }
              
-            // 4. Estrai i risultati della classificazione
+            //Estrae i risultati della classificazione
             guard let results = request.results as? [VNClassificationObservation] else {
                 print("Error: Model did not return VNClassificationObservation (detectHair).")
                 completion("Detection Error")
                 return
             }
              
-            // 5. Trova il risultato migliore
+            //trova il risultato migliore
             if let bestResult = results.first {
                 let identifier = bestResult.identifier // "Hair" or "NoHair"
                 let confidence = bestResult.confidence
                 print("CoreML: Detection complete. Best result: \(identifier) (Confidence: \(confidence))")
                 
-                // 6. Chiama la completion
                 completion(identifier)
                  
             } else {
@@ -172,7 +171,7 @@ class WelcomeViewModel: ObservableObject {
             }
         }
          
-        // 7. Esegui la richiesta
+        //Esegu la richiesta
         let handler = VNImageRequestHandler(ciImage: ciImage)
         DispatchQueue.global(qos: .userInitiated).async {
             do {
@@ -186,61 +185,48 @@ class WelcomeViewModel: ObservableObject {
         }
     }
      
-    // MARK: - Questa funzione è rimasta invariata fino al penultimo giorno, restituendo sempre risultati random. Per questo motivo non andrò a cancellare il codice, ma solo a commentarlo, proprio per ricordare questa opera
-    /*private func scanHair(image: UIImage, completion: @escaping (String) -> Void) {
-        DispatchQueue.global().asyncAfter(deadline: .now() + 1.5) {
-            let results = ["Healthy", "Damaged", "Extreme damaged"]
-            completion(results.randomElement()!)
-        }
-    }*/
-     
     // MARK: - Funzione di scansione REALE
     private func scanHair(image: UIImage, completion: @escaping (String) -> Void) {
         print("CoreML: Starting REAL scan...")
          
-        // 1. Assicurati che l'immagine sia nel formato corretto (CIImage)
+        // Check sul formato dell'immagine
         guard let ciImage = CIImage(image: image) else {
             print("Error: Failed to convert UIImage to CIImage.")
-            completion("Scan Error") // Restituisce un errore generico
+            completion("Scan Error")
             return
         }
          
-        // 2. Crea la richiesta per il modello HairScan
-        // Usiamo la proprietà `hairScanModel` che hai già caricato nell'init
+        //richiesta per il modello HairScan
         let request = VNCoreMLRequest(model: hairScanModel) { (request, error) in
              
-            // 3. Gestisci il risultato (o l'errore)
+            //Gestisce il risultato
             if let error = error {
                 print("Error: Vision request failed: \(error.localizedDescription)")
                 completion("Scan Error")
                 return
             }
              
-            // 4. Estrai i risultati della classificazione
+            //Estrae i risultati della classificazione
             guard let results = request.results as? [VNClassificationObservation] else {
                 print("Error: Model did not return VNClassificationObservation.")
                 completion("Scan Error")
                 return
             }
              
-            // 5. Trova il risultato migliore (quello con la confidenza più alta)
+            //Trova il risultato con la confidenza più alta
             if let bestResult = results.first {
                 let identifier = bestResult.identifier
                 let confidence = bestResult.confidence
                  
-                print("CoreML: Scan complete. Best result: \(identifier) (Confidence: \(confidence))")
-                 
-                // 6. Chiama la completion con il nome dell'etichetta
-                // (Es. "Healthy", "Damaged", "Extreme damaged")
                 completion(identifier)
                  
             } else {
-                print("Error: No classification results found.")
-                completion("Scan Error") // Nessun risultato trovato
+                print("Error: nessuna classificazione trovata")
+                completion("Scan Error")
             }
         }
          
-        // 7. Esegui la richiesta
+        //Esegue la richiesta
         let handler = VNImageRequestHandler(ciImage: ciImage)
         DispatchQueue.global(qos: .userInitiated).async {
             do {

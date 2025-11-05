@@ -51,7 +51,7 @@ struct HistoryCard: View {
                     .fill(Color.white.opacity(0.8))
                     .frame(width: 80, height: 80)
                     .overlay(
-                        Text("Photo")// <- qua va la foto
+                        Text("No Photo")
                             .font(.custom("SerifMedium", size: 18))
                             .foregroundColor(Color.themeText)
                     )
@@ -88,19 +88,3 @@ struct HistoryCard: View {
         )
     }
 }
-
-// Preview della singola Card
-/*
- #Preview {
- HistoryCard(
- result: .constant(
- AnalysisResult(
- date: Date(),
- healthStatus: "Healthy",
- maskName: "Yogurt & Flaxseed Shine Mask"
- )
- ),
- onDelete: { }
- )
- }
- */
